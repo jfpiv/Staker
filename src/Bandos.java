@@ -108,8 +108,20 @@ public class Bandos extends JFrame {
 
 		spekint.setBounds(57, 764, 79, 23);
 		getContentPane().add(spekint);
+		
+		JButton btnStaker = new JButton("Staker");
+		btnStaker.setBounds(23, 11, 89, 23);
+		btnStaker.addActionListener(re -> backToStaker(re));
+		getContentPane().add(btnStaker);
+		
 
 		setVisible(true);
+	}
+
+	private Object backToStaker(ActionEvent re) {
+		this.dispose();
+		new Back();
+		return null;
 	}
 
 	public void actionWhip(ActionEvent iv) {
@@ -249,5 +261,4 @@ public class Bandos extends JFrame {
 		}
 		return false;
 	}
-
 }

@@ -337,6 +337,7 @@ public class Back extends JFrame {
 	}
 	
 	public void launchBandos(ActionEvent ba){
+		this.dispose();
 		Bandos ban = new Bandos();
 		
 	}
