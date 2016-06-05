@@ -3,3 +3,5 @@ git pull => laatste nieuwe versie
 git add . => .= current directory => maak alle bestanden hier klaar om te commiten (dan local)
 git commit -m "/Description/"
 git push => laatste stap => dan zet die de locale bestanden online in master branch
+
+"origin master" bij pull en add!
