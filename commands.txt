@@ -1,3 +1,4 @@
+#Hoe commands eropzetten!
 git pull => laatste nieuwe versie
 git add . => .= current directory => maak alle bestanden hier klaar om te commiten (dan local)
 git commit -m "/Description/"
