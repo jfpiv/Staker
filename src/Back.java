@@ -102,14 +102,10 @@ public class Back extends JFrame {
 
 		ImageIcon sharkimg = new ImageIcon(getClass().getResource("shark.png"));
 		JLabel sharkpic = new JLabel(sharkimg);
-		
-		
-//		tabbedPane.addTab("Stake", coins, null, "Does nothing");
-//		tabbedPane.addTab("Bandos", icon, null, "dsf");
-		
 
-		
-		
+		// tabbedPane.addTab("Stake", coins, null, "Does nothing");
+		// tabbedPane.addTab("Bandos", icon, null, "dsf");
+
 		label.setFont(new Font("Tahoma", Font.PLAIN, 28));
 		label.setBounds(167, 293, 140, 55);
 		getContentPane().add(label);
@@ -238,9 +234,6 @@ public class Back extends JFrame {
 		dharokbtn.setToolTipText("Hit higher when less hp");
 		dharokbtn.setBounds(34, 548, 89, 23);
 		getContentPane().add(dharokbtn);
-		
-		
-		
 
 		JLabel lblNewLabel_3 = new JLabel("Al-zuq yadik");
 		lblNewLabel_3.setBounds(167, 213, 140, 26);
@@ -273,7 +266,7 @@ public class Back extends JFrame {
 		sharkpic.setBounds(181, 400, 40, 39);
 
 		getContentPane().add(sharkpic);
-		
+
 		JButton btnBandos = new JButton("Bandos");
 		btnBandos.addActionListener(ba -> launchBandos(ba));
 		btnBandos.setBounds(24, 11, 89, 23);
@@ -335,11 +328,11 @@ public class Back extends JFrame {
 		label_3.setText("");
 
 	}
-	
-	public void launchBandos(ActionEvent ba){
+
+	public void launchBandos(ActionEvent ba) {
 		this.dispose();
 		Bandos ban = new Bandos();
-		
+
 	}
 
 	private void reset() {
@@ -546,14 +539,12 @@ public class Back extends JFrame {
 			progressBar_1.setValue(spek_ai);
 			label_4.setText(Integer.toString(spek_ai));
 		}
-
-		;
-
 		checkDead();
 	}
 
 	private void aidharok() {
 		int dharockhit = 0;
+		int hpnu = HP_user;
 		if (HP_user <= 0 || HP_ai <= 0) {
 			return;
 		}
@@ -580,21 +571,17 @@ public class Back extends JFrame {
 			}
 
 			hit.setForeground(Color.red);
-			hit.setText("Dharok: " + "-" + Integer.toString(dharockhit));
 			HP_user = HP_user - dharockhit;
 			if (HP_user <= 0) {
+				hit.setText("Dharok: " + "-" + hpnu);
 				label.setText(Integer.toString(HP_user));
 				checkDead();
 				return;
-			}
-			if (HP_user <= 0) {
-				label_1.setText("0");
-				checkDead();
-				return;
+			} else {
+				label.setText(Integer.toString(HP_user));
+				hit.setText("Dharok: " + "-" + Integer.toString(dharockhit));
 			}
 		}
-		checkDead();
-		AIAttack();
 		checkDead();
 
 	}
@@ -610,23 +597,32 @@ public class Back extends JFrame {
 		hitt.setForeground(Color.green);
 		hitt.setText("+40");
 		label_1.setText(Integer.toString(HP_ai));
+		hit.setText("");
 		checkDead();
 
 	}
 
 	private void AIAgs() {
 		checkDead();
+		int hpnu = HP_user;
+		int specialAgs;
 		if (!checkDead() && spek_ai >= 50) {
 			if (HP_user < 40) {
-				int specialAgs = randInt(0, 50);
+				specialAgs = randInt(0, 50);
 			} else {
-				int specialAgs = randInt(0, 68);
+				specialAgs = randInt(0, 68);
 			}
-			int specialAgs = randInt(0, 68);
 			hit.setForeground(Color.red);
 			HP_user = HP_user - specialAgs;
-			label.setText(Integer.toString(HP_user));
-			hit.setText("AGS: -" + Integer.toString(specialAgs));
+			if (HP_user <= 0) {
+				hit.setText("AGS:- " + hpnu);
+				label.setText(Integer.toString(HP_user));
+				checkDead();
+				return;
+			} else {
+				label.setText(Integer.toString(HP_user));
+				hit.setText("AGS:- " + Integer.toString(specialAgs));
+			}
 		}
 
 		spek_ai = spek_ai - 50;
@@ -636,6 +632,7 @@ public class Back extends JFrame {
 
 	private void AIDds() {
 		checkDead();
+		int hpnu = HP_user;
 		if (spek_ai >= 25) {
 			int Special = randInt(0, 30);
 			int Speciall = randInt(0, 30);
@@ -643,8 +640,16 @@ public class Back extends JFrame {
 
 			HP_user = HP_user - total;
 			hit.setForeground(Color.red);
-			hit.setText("DDS:-" + Integer.toString(Special) + " -" + Integer.toString(Speciall));
-			label.setText(Integer.toString(HP_user));
+			if (HP_user <= 0) {
+				hit.setText("DDS:-" + hpnu + " - 0");
+				label.setText(Integer.toString(HP_user));
+				checkDead();
+				return;
+			} else {
+				hit.setText("DDS:- " + Integer.toString(Special) + " - " + Integer.toString(Speciall));
+				label.setText(Integer.toString(HP_user));
+			}
+
 		}
 		spek_ai = spek_ai - 25;
 		progressBar_1.setValue(spek_ai);
@@ -653,22 +658,30 @@ public class Back extends JFrame {
 
 	public void AIWhip() {
 		checkDead();
-
+		int hpnu = HP_user;
 		if (HP_user > 0) {
 			int whip = randInt(0, 26);
 
 			hit.setForeground(Color.red);
 			if (whip < 1) {
-				hit.setText("Missed!");
+				hit.setText("Whip: " + whip);
 			} else {
-				hit.setText("Whip:-" + Integer.toString(whip));
+				hit.setText("Whip:- " + Integer.toString(whip));
 				HP_user = HP_user - whip;
-				System.out.println(
-						"Whip damage ai:" + whip + "\n HP user: " + HP_user + "\n TotaalHPuser: " + (HP_user - whip));
+				if (HP_user <= 0) {
+					hit.setText("Whip:- " + hpnu);
+					label.setText(Integer.toString(HP_user));
+					checkDead();
+					return;
+				} else {
+					label.setText(Integer.toString(HP_user));
+					hit.setText("Whip:- " + Integer.toString(whip));
+				}
 			}
-			label.setText(Integer.toString(HP_user));
+
+		} else {
+			return;
 		}
-		checkDead();
 	}
 
 	public void actionShark(ActionEvent ov) {
@@ -676,7 +689,7 @@ public class Back extends JFrame {
 		checkDead();
 		if (shark_user > 0) {
 			shark_user = shark_user - 1;
-			if (HP_user > 0) {
+			if (HP_user > 0 && HP_user < 99) {
 				if (spek_user < 100) {
 					spek_user = spek_user + 5;
 					progressBar.setValue(spek_user);
@@ -695,6 +708,8 @@ public class Back extends JFrame {
 				label.setText(Integer.toString(HP_user));
 				AIAttack();
 				shark1.setText(Integer.toString(shark_user));
+			} else {
+				hit.setText("You're full");
 			}
 
 			if (HP_user <= 0) {
@@ -769,7 +784,7 @@ public class Back extends JFrame {
 			} else if (welke == 3) {
 				lblNewLabel_2.setIcon(image5);
 				System.out.println("Zilly");
-			} else if (welke ==4) {
+			} else if (welke == 4) {
 				System.out.println("Jad");
 				lblNewLabel_2.setIcon(image6);
 			}
