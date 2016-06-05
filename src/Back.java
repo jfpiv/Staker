@@ -73,7 +73,7 @@ public class Back extends JFrame {
 	ImageIcon icon = new ImageIcon(getClass().getResource("bandos.png"));
 	ImageIcon coins = new ImageIcon(getClass().getResource("coins.png"));
 	private final JLabel lblBergJewsypoes = new JLabel("Berg jewsypoes");
-	private final JLabel lblBuild = new JLabel("Build: 0.03");
+	private final JLabel lblBuild = new JLabel("Build: 0.2");
 	private JLabel label_4 = new JLabel();
 	private JLabel ddspic = new JLabel();
 	private final JLabel agspic = new JLabel();
