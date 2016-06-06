@@ -212,6 +212,7 @@ public class Bandos extends JFrame {
 
 	private void actionAGS(ActionEvent ags) {
 		checkDead();
+		notenougspek.setText("");
 		if (HP_boss <= 0) {
 			return;
 		}
@@ -278,6 +279,7 @@ public class Bandos extends JFrame {
 	}
 
 	private void dhAttack(ActionEvent dh) {
+		notenougspek.setText("");
 		int dharockhit = 0;
 		if (hp_user <= 0) {
 			return;
@@ -308,20 +310,21 @@ public class Bandos extends JFrame {
 			lbluserdamage.setText("You hit: " + "-" + Integer.toString(dharockhit));
 			lblhpboss.setText(Integer.toString(HP_boss));
 			progressBar.setValue(HP_boss);
+			AIAttack();
 		}
 		if (HP_boss <= 0) {
 			lblhpboss.setText("0");
 			checkDead();
 			return;
 		}
-		if (hp_user > 0) {
+		
 			if (spek_user < 100) {
 				spek_user = spek_user + 5;
 				spekuser.setValue(spek_user);
 				spekint.setText(Integer.toString(spek_user));
 			}
-			AIAttack();
-		}
+			
+		
 		if (HP_boss <= 0) {
 			HP_boss = 0;
 			lblhpboss.setText("0");
@@ -329,6 +332,7 @@ public class Bandos extends JFrame {
 			return;
 		}
 		progressBar.setValue(HP_boss);
+		
 		checkDead();
 
 	}
@@ -340,7 +344,7 @@ public class Bandos extends JFrame {
 	}
 
 	public void actionWhip(ActionEvent iv) {
-
+		notenougspek.setText("");
 		if (HP_boss <= 0) {
 			return;
 		}
@@ -393,7 +397,7 @@ public class Bandos extends JFrame {
 	}
 
 	public void actionDDS(ActionEvent ev) {
-
+		notenougspek.setText("");
 		if (HP_boss <= 0) {
 			return;
 		}
