@@ -1,3 +1,6 @@
+package be.staker.app;
+
+import be.staker.ui.Back;
 
 public class StakeApp {
 

@@ -1,30 +1,19 @@
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.awt.Label;
-import sun.audio.*;
+package be.staker.ui;
 
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JPanel;
 import javax.swing.JTextPane;
-import javax.swing.JTextArea;
+
+import be.staker.app.Bandos;
+
 import java.awt.Font;
 import java.awt.event.ActionListener;
-import java.io.File;
 import java.util.Random;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JProgressBar;
-import javax.swing.SwingConstants;
-import javax.swing.JSpinner;
-import javax.swing.JTabbedPane;
-import javax.swing.Icon;
-import javax.swing.JLayeredPane;
-import javax.swing.JMenuBar;
 
 public class Back extends JFrame {
 
@@ -33,7 +22,7 @@ public class Back extends JFrame {
 	int HP_ai = 99;
 	JLabel label_1 = new JLabel(Integer.toString(HP_ai));
 	JLabel label = new JLabel(Integer.toString(HP_user));
-	JLabel hit = new JLabel();
+	public JLabel hit = new JLabel();
 	JLabel hitt = new JLabel();
 	boolean spek = true;
 	boolean spekk = true;

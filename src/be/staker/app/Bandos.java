@@ -1,3 +1,4 @@
+package be.staker.app;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.Icon;
@@ -8,6 +9,8 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JProgressBar;
 import javax.swing.plaf.ProgressBarUI;
+
+import be.staker.ui.Back;
 
 import java.awt.Color;
 import java.awt.Font;
