@@ -1,8 +1,5 @@
 package be.staker.pojo;
 
-import java.awt.Color;
-
-import be.staker.ui.*;
 import be.staker.util.Util;
 
 public class User {
@@ -13,18 +10,12 @@ public class User {
 	private int spec;
 	private int stake;
 	private Shark shark;
+	private boolean isDead = false;
 	
 	private Weapon whip;
-	private int damageWhip = Util.randInt(0, 26);
-	
 	private Weapon dharok;
-	
-	
 	private Weapon dds;
-	int damageDds = Util.randInt(0, 32);
-	
 	private Weapon ags;
-	
 	
 	public User(int hp, Shark shark, int spec, int stake){
 		this.setHp(hp);
@@ -32,9 +23,9 @@ public class User {
 		this.setSpec(spec);
 		this.setStake(stake);
 		
-		whip = new Weapon(0, 0);
+		whip = new Weapon(Util.randInt(0, 26), 0);
 		dharok = new Weapon(0, 0);
-		dds = new Weapon(0, 25);
+		dds = new Weapon(Util.randInt(0, 32), 25);
 		ags = new Weapon(0, 50);
 	}
 	
@@ -81,8 +72,7 @@ public class User {
 	}
 	
 	public boolean isDead(){
-		boolean isDead = false;
-				
+		
 		if(this.hp <= User.MIN_HEALTH){
 			isDead = true;
 		}
@@ -90,16 +80,18 @@ public class User {
 		return isDead;
 	}
 	
-	public String eatShark(){
-			
-		if (this.shark.getAmount() > 0) {
+	public boolean eatShark(){
+		boolean success;
+		
+		if (this.shark.getAmount() > 0 && !this.isDead) {
 			this.shark.decreaseAmount(1);
 			this.hp = this.hp + this.shark.getHealing();
-			return "Shark eaten";
+			success = true;
 		} else {
-			return "No sharks left";
+			success = false;
 		}
-			
+		
+		return success;
 	}
 	
 	/*
@@ -149,17 +141,13 @@ public class User {
 	}
 	
 	private void doWhip(User target){
-		if(!this.isDead()){
-			this.hp -= damageWhip;
-			//aihpipv user!
-			
-			this.spec += 5;
-			
-			
-			
-			
-		}
+
+		target.decreaseHp(this.whip.getHit());
+		//aihpipv user!
 		
+		this.addSpec(this.whip);
+		this.decreaseSpec(this.whip);
+			
 		
 //		notenougspek.setText("");
 //		if (HP_boss <= 0) {
