@@ -91,10 +91,9 @@ public class User {
 	}
 	
 	public String eatShark(){
-		
-		boolean success = this.shark.decreaseAmount(1);
-		
-		if (success) {
+			
+		if (this.shark.getAmount() > 0) {
+			this.shark.decreaseAmount(1);
 			this.hp = this.hp + this.shark.getHealing();
 			return "Shark eaten";
 		} else {
