@@ -28,7 +28,17 @@ public class Shark extends Button{
 		this.amount = amount;
 	}
 	
-	public void decreaseAmount(int amount) {
-		this.amount = this.amount - amount;
+	public boolean decreaseAmount(int amount) {
+		boolean success;
+		
+		if(this.amount > MIN_AMOUNT){
+			success = true;
+			this.amount = this.amount - amount;
+		} else {
+			success = false;
+		}
+		
+		return success;
+		
 	}
 }

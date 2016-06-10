@@ -6,7 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
 
-import be.staker.app.Bandos;
+import be.staker.ui.Bandos;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -15,7 +15,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JProgressBar;
 
-public class Back extends JFrame {
+public class Staker extends JFrame {
 
 	float fontGrootte = 35;
 	int HP_user = 99;
@@ -69,7 +69,7 @@ public class Back extends JFrame {
 	private final JLabel dhpic = new JLabel();
 	private final JLabel sharkpic = new JLabel();
 
-	public Back() {
+	public Staker() {
 		super("Staker");
 		setSize(700, 700);
 		setLocationRelativeTo(null);

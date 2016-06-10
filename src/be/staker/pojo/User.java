@@ -1,6 +1,7 @@
 package be.staker.pojo;
 
 import be.staker.ui.*;
+import be.staker.util.Util;
 
 public class User {
 	public static final int MAX_HEALTH = 100;
@@ -60,6 +61,14 @@ public class User {
 	public void decreaseSpec(Weapon weapon) {
 		this.spec = this.spec - weapon.getDecreaseSpec();
 	}
+	public String decreaseHp(int damage){
+		if(!this.isDead()){
+			this.hp = this.hp - damage;
+			return "Damage";
+		} else {
+			return "isDead";
+		}
+	}
 	
 	public boolean isDead(){
 		boolean isDead = false;
@@ -71,49 +80,78 @@ public class User {
 		return isDead;
 	}
 	
-	public void eatShark(){
+	public String eatShark(){
 		
-		this.shark.decreaseAmount(1);
+		boolean success = this.shark.decreaseAmount(1);
 		
-		if (this.shark.getAmount() <= Shark.MIN_AMOUNT){
-			
-		} else {
+		if (success) {
 			this.hp = this.hp + this.shark.getHealing();
+			return "Shark eaten";
+		} else {
+			return "No sharks left";
 		}
+			
 	}
 	
-	public void doAttack(int weapon, User user){
+	/*
+	 * Attack target with a chosen weapon
+	 */
+	public void doAttack(int weapon, User target){
 		switch (weapon) {
 		case Weapon.WHIP:
-			this.doWhip(user);
+			this.doWhip(target);
 			break;
 		case Weapon.DHAROK:
-			this.doDharok(user);
+			this.doDharok(target);
 			break;
 		case Weapon.DDS:
-			this.doDDS(user);
+			this.doDDS(target);
 			break;
 		case Weapon.AGS:
-			this.doAGS(user);
+			this.doAGS(target);
 			break;
 		default:
 			break;
 		}
 	}
 	
-	private void doWhip(User user){
+	/*
+	 * Attack target with a random weapon
+	 */
+	public void doAttack(User target){
+		int random = Util.randInt(0, 4);
+		
+		switch (random) {
+		case Weapon.WHIP:
+			this.doWhip(target);
+			break;
+		case Weapon.DHAROK:
+			this.doDharok(target);
+			break;
+		case Weapon.DDS:
+			this.doDDS(target);
+			break;
+		case Weapon.AGS:
+			this.doAGS(target);
+			break;
+		default:
+			break;
+		}
+	}
+	
+	private void doWhip(User target){
 		//Logica damage calculation
 	}
 	
-	private void doDharok(User user){
+	private void doDharok(User target){
+		//Logica) damage calculation
+	}
+	
+	private void doDDS(User target){
 		//Logica damage calculation
 	}
 	
-	private void doDDS(User user){
-		//Logica damage calculation
-	}
-	
-	private void doAGS(User user){
+	private void doAGS(User target){
 		//Logica damage calculation
 	}
 }

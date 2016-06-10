@@ -1,4 +1,4 @@
-package be.staker.app;
+package be.staker.ui;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.Icon;
@@ -9,8 +9,6 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 import javax.swing.JProgressBar;
 import javax.swing.plaf.ProgressBarUI;
-
-import be.staker.ui.Back;
 
 import java.awt.Color;
 import java.awt.Font;
@@ -342,7 +340,7 @@ public class Bandos extends JFrame {
 
 	private Object backToStaker(ActionEvent re) {
 		this.dispose();
-		new Back();
+		new Staker();
 		return null;
 	}
 
