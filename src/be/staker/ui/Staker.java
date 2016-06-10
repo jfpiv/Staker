@@ -18,56 +18,86 @@ import javax.swing.JProgressBar;
 public class Staker extends JFrame {
 
 	float fontGrootte = 35;
+	
 	int HP_user = 99;
 	int HP_ai = 99;
-	JLabel label_1 = new JLabel(Integer.toString(HP_ai));
-	JLabel label = new JLabel(Integer.toString(HP_user));
-	public JLabel hit = new JLabel();
-	JLabel hitt = new JLabel();
-	boolean spek = true;
-	boolean spekk = true;
-	JLabel label_2 = new JLabel();
-	JButton btnAgs = new JButton("AGS (50)");
-	JProgressBar progressBar = new JProgressBar();
-	int spek_user = 100;
-	int spek_ai = 100;
-	JLabel lblNewLabel_4 = new JLabel(Integer.toString(spek_user));
-	JLabel lblNewLabel = new JLabel("");
-	JProgressBar progressBar_1 = new JProgressBar();
-	JTextPane stakeamount = new JTextPane();
-	private JLabel lblCurrentAmount = new JLabel("Current Amount:");
-	int MONEY = 10;
-	JLabel money = new JLabel(Integer.toString(MONEY));
-	int STAKED;
-	JButton startStake = new JButton("Start");
-	boolean STAKING;
-	JLabel label_3 = new JLabel();
-	int tussengeld;
-	int stakePet = 1998;
-	JLabel label_pet = new JLabel();
-
+	
 	int shark_ai = 5;
 	int shark_user = 5;
-	private JLabel shark1 = new JLabel(Integer.toString(shark_user));
-	private JLabel shark2 = new JLabel(Integer.toString(shark_ai));
-	private JLabel lblNewLabel_1 = new JLabel();
+	
+	int spek_user = 100;
+	int spek_ai = 100;
+	
+	int MONEY = 10;
+	int STAKED;
+	int tussengeld;
+	
+	int stakePet = 1998;
+	
+	JLabel lblLogoHeader;
+	
+	//user
+	JLabel lblUserHp = new JLabel(Integer.toString(HP_user));
+	JLabel lblUserReceivedDmg = new JLabel();
+	JLabel lblUserHealing = new JLabel();
+	JLabel lblUserSpecTextAmount = new JLabel(Integer.toString(spek_user));
+	JLabel playerSharkAmount = new JLabel(Integer.toString(shark_user));
+	
+	//opponent
+	JLabel lblOpponentHp = new JLabel(Integer.toString(HP_ai));
+	JLabel lblOpponentReceivedDmg = new JLabel();
+	JLabel OpponentSharkAmount = new JLabel(Integer.toString(shark_ai));
+	JLabel lblOpponentName = new JLabel("Berg jewsypoes");
+	JLabel lblOpponentSpecTextAmount = new JLabel();
+	
+	//stake
+	JLabel lblTextCurrentAmount = new JLabel("Current Amount:");
+	JLabel lblStakeAmountCurrent = new JLabel(Integer.toString(MONEY));
+	JLabel lblStakeWinLoss = new JLabel();
+	
+	JLabel lblBuildVersion = new JLabel("Build: 0.2");
+	
+	//specbalks
+	JProgressBar userSpecialBar = new JProgressBar();
+	JProgressBar OpponentSpecialBar = new JProgressBar();
+	
+	//pet
+	JLabel lblPet = new JLabel();
+	JLabel label_Pet = new JLabel();
+	
+	
+	//buttons
+	JButton btnReset = new JButton("Restart");
+	JButton btnAgs = new JButton("AGS (50)");
+	JButton btnStartStake = new JButton("Start");
+
+	//invoerveld
+	JTextPane stakeAmountInputField = new JTextPane();
+	
+	//geenflauwidee :doge:
+	JLabel lblNewLabel_1 = new JLabel();
+	JLabel lblNewLabel = new JLabel("");
+	
+	//labelsvooricons
+	JLabel ddspic = new JLabel();
+	JLabel agspic = new JLabel();
+	JLabel dhpic = new JLabel();
+	JLabel sharkpic = new JLabel();
+
+	//alleicons
 	ImageIcon header_RS_Logo; 
 	ImageIcon pet_Lander = new ImageIcon(getClass().getResource("pet_Lander.png"));
 	ImageIcon pet_Bandos = new ImageIcon(getClass().getResource("pet_Bandos.png"));
 	ImageIcon pet_Dks = new ImageIcon(getClass().getResource("pet_Dks.png"));
 	ImageIcon pet_Sara = new ImageIcon(getClass().getResource("pet_Sara.png"));
 	ImageIcon pet_Jad = new ImageIcon(getClass().getResource("pet_Jad.png"));
-	private final JButton btnReset = new JButton("Restart");
-	private JLabel lblNewLabel_2 = new JLabel();
 	ImageIcon icon = new ImageIcon(getClass().getResource("bandos.png"));
 	ImageIcon coins = new ImageIcon(getClass().getResource("coins.png"));
-	private final JLabel lblBergJewsypoes = new JLabel("Berg jewsypoes");
-	private final JLabel lblBuild = new JLabel("Build: 0.2");
-	private JLabel label_4 = new JLabel();
-	private JLabel ddspic = new JLabel();
-	private final JLabel agspic = new JLabel();
-	private final JLabel dhpic = new JLabel();
-	private final JLabel sharkpic = new JLabel();
+	
+	//randombooleans
+	boolean spek = true;
+	boolean spekk = true;
+	boolean STAKING;
 
 	public Staker() {
 		super("Staker");
@@ -75,43 +105,40 @@ public class Staker extends JFrame {
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		header_RS_Logo = new ImageIcon(getClass().getResource("RS_logo_old.png"));
-		lblNewLabel_1 = new JLabel(header_RS_Logo);
+		lblLogoHeader = new JLabel(header_RS_Logo);
 
 		ImageIcon whipimg = new ImageIcon(getClass().getResource("whip.png"));
-		JLabel whippic = new JLabel(whipimg);
+		JLabel lblWeaponWhipImg = new JLabel(whipimg);
 
 		ImageIcon ddsimg = new ImageIcon(getClass().getResource("dds.png"));
-		JLabel ddspic = new JLabel(ddsimg);
+		JLabel lblWeaponDdsImg = new JLabel(ddsimg);
 
 		ImageIcon agsimg = new ImageIcon(getClass().getResource("ags.png"));
-		JLabel agspic = new JLabel(agsimg);
+		JLabel lblWeaponAgsImg = new JLabel(agsimg);
 
 		ImageIcon dhimg = new ImageIcon(getClass().getResource("dh.png"));
-		JLabel dhpic = new JLabel(dhimg);
+		JLabel lblWeaponDhImg = new JLabel(dhimg);
 
 		ImageIcon sharkimg = new ImageIcon(getClass().getResource("shark.png"));
-		JLabel sharkpic = new JLabel(sharkimg);
+		JLabel lblSharkImg = new JLabel(sharkimg);
 
-		// tabbedPane.addTab("Stake", coins, null, "Does nothing");
-		// tabbedPane.addTab("Bandos", icon, null, "dsf");
+		lblUserHp.setFont(new Font("Tahoma", Font.PLAIN, 28));
+		lblUserHp.setBounds(167, 293, 140, 55);
+		getContentPane().add(lblUserHp);
 
-		label.setFont(new Font("Tahoma", Font.PLAIN, 28));
-		label.setBounds(167, 293, 140, 55);
-		getContentPane().add(label);
+		lblOpponentHp.setFont(new Font("Tahoma", Font.PLAIN, 28));
+		lblOpponentHp.setBounds(372, 293, 140, 55);
+		getContentPane().add(lblOpponentHp);
 
-		label_1.setFont(new Font("Tahoma", Font.PLAIN, 28));
-		label_1.setBounds(372, 293, 140, 55);
-		getContentPane().add(label_1);
+		JLabel lblPlayerYourHp = new JLabel("Your HP");
+		lblPlayerYourHp.setFont(new Font("Tahoma", Font.PLAIN, 34));
+		lblPlayerYourHp.setBounds(157, 241, 132, 31);
+		getContentPane().add(lblPlayerYourHp);
 
-		JLabel lblYourHp = new JLabel("Your HP");
-		lblYourHp.setFont(new Font("Tahoma", Font.PLAIN, 34));
-		lblYourHp.setBounds(157, 241, 132, 31);
-		getContentPane().add(lblYourHp);
-
-		JLabel lblEnemyHp = new JLabel("Enemy HP");
-		lblEnemyHp.setFont(new Font("Tahoma", Font.PLAIN, 34));
-		lblEnemyHp.setBounds(362, 236, 176, 41);
-		getContentPane().add(lblEnemyHp);
+		JLabel lblOpponentYourHp = new JLabel("Enemy HP");
+		lblOpponentYourHp.setFont(new Font("Tahoma", Font.PLAIN, 34));
+		lblOpponentYourHp.setBounds(362, 236, 176, 41);
+		getContentPane().add(lblOpponentYourHp);
 
 		JButton btnDds = new JButton("DDS (25)");
 		btnDds.addActionListener(ev -> actionDDS(ev));
@@ -131,76 +158,76 @@ public class Staker extends JFrame {
 		btnEatShark.setBounds(157, 445, 89, 23);
 		getContentPane().add(btnEatShark);
 
-		hit.setForeground(Color.BLACK);
-		hit.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		hit.setBounds(166, 328, 132, 41);
-		getContentPane().add(hit);
+		lblUserReceivedDmg.setForeground(Color.BLACK);
+		lblUserReceivedDmg.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblUserReceivedDmg.setBounds(166, 328, 132, 41);
+		getContentPane().add(lblUserReceivedDmg);
 
-		hitt.setForeground(Color.BLACK);
-		hitt.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		hitt.setBounds(362, 335, 150, 31);
-		getContentPane().add(hitt);
+		lblOpponentReceivedDmg.setForeground(Color.BLACK);
+		lblOpponentReceivedDmg.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblOpponentReceivedDmg.setBounds(362, 335, 150, 31);
+		getContentPane().add(lblOpponentReceivedDmg);
 
-		label_2.setBounds(234, 309, 89, 39);
-		getContentPane().add(label_2);
+		lblUserHealing.setBounds(234, 309, 89, 39);
+		getContentPane().add(lblUserHealing);
 
 		btnAgs.setBounds(34, 479, 89, 23);
 		getContentPane().add(btnAgs);
 		btnAgs.setToolTipText("Hit hard!");
 		btnAgs.addActionListener(ags -> actionAgs(ags));
 
-		progressBar.setForeground(new Color(50, 205, 50));
-		progressBar.setValue(100);
-		progressBar.setBounds(148, 557, 146, 14);
-		getContentPane().add(progressBar);
+		userSpecialBar.setForeground(new Color(50, 205, 50));
+		userSpecialBar.setValue(100);
+		userSpecialBar.setBounds(148, 557, 146, 14);
+		getContentPane().add(userSpecialBar);
 
 		lblNewLabel.setBounds(142, 573, 146, 23);
 		getContentPane().add(lblNewLabel);
-		progressBar_1.setForeground(new Color(50, 205, 50));
-		progressBar_1.setBounds(397, 557, 146, 14);
-		progressBar_1.setValue(100);
+		OpponentSpecialBar.setForeground(new Color(50, 205, 50));
+		OpponentSpecialBar.setBounds(397, 557, 146, 14);
+		OpponentSpecialBar.setValue(100);
 
-		getContentPane().add(progressBar_1);
+		getContentPane().add(OpponentSpecialBar);
 
-		stakeamount.setBounds(305, 445, 89, 23);
-		getContentPane().add(stakeamount);
+		stakeAmountInputField.setBounds(305, 445, 89, 23);
+		getContentPane().add(stakeAmountInputField);
 
-		JLabel lblStakeAmount = new JLabel("Stake Amount:");
-		lblStakeAmount.setBounds(305, 415, 107, 19);
-		getContentPane().add(lblStakeAmount);
-		lblCurrentAmount.setBounds(405, 415, 107, 19);
+		JLabel lblTextStakeAmount = new JLabel("Stake Amount:");
+		lblTextStakeAmount.setBounds(305, 415, 107, 19);
+		getContentPane().add(lblTextStakeAmount);
+		lblTextCurrentAmount.setBounds(405, 415, 107, 19);
 
-		getContentPane().add(lblCurrentAmount);
-		money.setBounds(405, 449, 107, 19);
+		getContentPane().add(lblTextCurrentAmount);
+		lblStakeAmountCurrent.setBounds(405, 449, 107, 19);
 
-		getContentPane().add(money);
+		getContentPane().add(lblStakeAmountCurrent);
 
-		startStake.addActionListener(st -> startStake(st));
+		btnStartStake.addActionListener(st -> startStake(st));
 
-		startStake.setToolTipText("");
-		startStake.setBounds(305, 479, 89, 23);
-		getContentPane().add(startStake);
+		btnStartStake.setToolTipText("");
+		btnStartStake.setBounds(305, 479, 89, 23);
+		getContentPane().add(btnStartStake);
 
 		JButton btnMasterRestart = new JButton("Master Restart");
 		btnMasterRestart.addActionListener(mr -> masterRes(mr));
 		btnMasterRestart.setBounds(283, 583, 150, 23);
 		getContentPane().add(btnMasterRestart);
 
-		label_3.setBounds(405, 483, 80, 19);
-		getContentPane().add(label_3);
+		lblStakeWinLoss.setBounds(405, 483, 80, 19);
+		getContentPane().add(lblStakeWinLoss);
 
-		label_pet.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		label_pet.setBounds(213, 617, 345, 33);
-		getContentPane().add(label_pet);
-		shark1.setBounds(142, 441, 18, 31);
+		label_Pet.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		label_Pet.setBounds(213, 617, 345, 33);
+		getContentPane().add(label_Pet);
+		playerSharkAmount.setBounds(142, 441, 18, 31);
 
-		getContentPane().add(shark1);
-		shark2.setBounds(256, 449, 18, 14);
+		getContentPane().add(playerSharkAmount);
+		OpponentSharkAmount.setBounds(256, 449, 18, 14);
 
-		getContentPane().add(shark2);
-		lblNewLabel_1.setBounds(171, 2, 438, 142);
+		getContentPane().add(OpponentSharkAmount);
+		lblLogoHeader.setBounds(171, 2, 438, 142);
 
-		getContentPane().add(lblNewLabel_1);
+		getContentPane().add(lblLogoHeader);
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				reset();
@@ -210,51 +237,51 @@ public class Staker extends JFrame {
 		btnReset.setBounds(305, 517, 89, 23);
 
 		getContentPane().add(btnReset);
-		lblNewLabel_2.setBounds(24, 561, 120, 89);
+		lblPet.setBounds(24, 561, 120, 89);
 
-		getContentPane().add(lblNewLabel_2);
+		getContentPane().add(lblPet);
 
-		JButton dharokbtn = new JButton("Dharok");
-		dharokbtn.addActionListener(new ActionListener() {
+		JButton btnDh = new JButton("Dharok");
+		btnDh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent dh) {
 				dharok();
 			}
 		});
-		dharokbtn.setToolTipText("Hit higher when less hp");
-		dharokbtn.setBounds(34, 548, 89, 23);
-		getContentPane().add(dharokbtn);
+		btnDh.setToolTipText("Hit higher when less hp");
+		btnDh.setBounds(34, 548, 89, 23);
+		getContentPane().add(btnDh);
 
-		JLabel lblNewLabel_3 = new JLabel("Al-zuq yadik");
-		lblNewLabel_3.setBounds(167, 213, 140, 26);
-		getContentPane().add(lblNewLabel_3);
-		lblBergJewsypoes.setBounds(372, 213, 140, 26);
+		JLabel lblPlayerName = new JLabel("Al-zuq yadik");
+		lblPlayerName.setBounds(167, 213, 140, 26);
+		getContentPane().add(lblPlayerName);
+		lblOpponentName.setBounds(372, 213, 140, 26);
 
-		getContentPane().add(lblBergJewsypoes);
-		lblBuild.setBounds(593, 636, 81, 14);
+		getContentPane().add(lblOpponentName);
+		lblBuildVersion.setBounds(593, 636, 81, 14);
 
-		getContentPane().add(lblBuild);
+		getContentPane().add(lblBuildVersion);
 
-		lblNewLabel_4.setBounds(201, 537, 79, 23);
-		getContentPane().add(lblNewLabel_4);
-		label_4.setText("100");
-		label_4.setBounds(457, 536, 79, 23);
+		lblUserSpecTextAmount.setBounds(201, 537, 79, 23);
+		getContentPane().add(lblUserSpecTextAmount);
+		lblOpponentSpecTextAmount.setText("100");
+		lblOpponentSpecTextAmount.setBounds(457, 536, 79, 23);
 
-		getContentPane().add(label_4);
+		getContentPane().add(lblOpponentSpecTextAmount);
 
-		whippic.setBounds(56, 306, 40, 39);
-		getContentPane().add(whippic);
-		ddspic.setBounds(56, 374, 40, 39);
+		lblWeaponWhipImg.setBounds(56, 306, 40, 39);
+		getContentPane().add(lblWeaponWhipImg);
+		lblWeaponDdsImg.setBounds(56, 374, 40, 39);
 
-		getContentPane().add(ddspic);
-		agspic.setBounds(59, 438, 40, 39);
+		getContentPane().add(lblWeaponDdsImg);
+		lblWeaponAgsImg.setBounds(59, 438, 40, 39);
 
-		getContentPane().add(agspic);
-		dhpic.setBounds(57, 505, 40, 39);
+		getContentPane().add(lblWeaponAgsImg);
+		lblWeaponDhImg.setBounds(57, 505, 40, 39);
 
-		getContentPane().add(dhpic);
-		sharkpic.setBounds(181, 400, 40, 39);
+		getContentPane().add(lblWeaponDhImg);
+		lblSharkImg.setBounds(181, 400, 40, 39);
 
-		getContentPane().add(sharkpic);
+		getContentPane().add(lblSharkImg);
 
 		JButton btnBandos = new JButton("Bandos");
 		btnBandos.addActionListener(ba -> launchBandos(ba));
@@ -265,13 +292,13 @@ public class Staker extends JFrame {
 
 		if (HP_user <= 0) {
 			HP_user = 0;
-			label_2.setText("");
-			label.setText("You Lost");
+			lblUserHealing.setText("");
+			lblUserHp.setText("You Lost");
 		}
 		if (HP_ai <= 0) {
 
 			HP_ai = 0;
-			label.setText("You Won");
+			lblUserHp.setText("You Won");
 		}
 
 	}
@@ -280,41 +307,41 @@ public class Staker extends JFrame {
 
 		reset();
 		STAKING = true;
-		STAKED = Integer.parseInt(stakeamount.getText());
+		STAKED = Integer.parseInt(stakeAmountInputField.getText());
 		if (STAKED <= 0) {
-			STAKED = Integer.parseInt(stakeamount.getText());
+			STAKED = Integer.parseInt(stakeAmountInputField.getText());
 			System.out.println("DIkke 0");
 		}
 
 		if (STAKED < 0) {
-			stakeamount.setText("Invalid");
+			stakeAmountInputField.setText("Invalid");
 			STAKED = 0;
 			STAKING = false;
 		} else if (STAKED == 0) {
 			STAKING = false;
 			STAKED = 0;
 		} else if (STAKED > MONEY) {
-			stakeamount.setText("Invalid");
+			stakeAmountInputField.setText("Invalid");
 			STAKED = 0;
 			STAKING = false;
 		} else {
 			tussengeld = MONEY;
 			MONEY = MONEY - STAKED;
 			STAKING = true;
-			money.setText(Integer.toString(MONEY));
+			lblStakeAmountCurrent.setText(Integer.toString(MONEY));
 			STAKING = true;
 		}
-		stakeamount.setText("");
+		stakeAmountInputField.setText("");
 	}
 
 	public void masterRes(ActionEvent mr) {
 		reset();
 		MONEY = 10;
-		money.setText(Integer.toString(MONEY));
+		lblStakeAmountCurrent.setText(Integer.toString(MONEY));
 
 		tussengeld = 0;
 		STAKED = 0;
-		label_3.setText("");
+		lblStakeWinLoss.setText("");
 
 	}
 
@@ -325,26 +352,26 @@ public class Staker extends JFrame {
 	}
 
 	private void reset() {
-		label_1.setText("99");
-		label.setText("99");
-		hitt.setText("");
-		hit.setText("");
-		label_2.setText("");
+		lblOpponentHp.setText("99");
+		lblUserHp.setText("99");
+		lblOpponentReceivedDmg.setText("");
+		lblUserReceivedDmg.setText("");
+		lblUserHealing.setText("");
 		HP_ai = 99;
 		HP_user = 99;
 		spek_user = 100;
 		spek_ai = 100;
-		progressBar_1.setValue(100);
-		progressBar.setValue(100);
+		OpponentSpecialBar.setValue(100);
+		userSpecialBar.setValue(100);
 		tussengeld = 0;
 		shark_ai = 5;
 		shark_user = 5;
-		shark1.setText(Integer.toString(shark_user));
-		shark2.setText(Integer.toString(shark_ai));
+		playerSharkAmount.setText(Integer.toString(shark_user));
+		OpponentSharkAmount.setText(Integer.toString(shark_ai));
 		lblNewLabel.setText("");
 		STAKED = 0;
-		lblNewLabel_4.setText(Integer.toString(spek_user));
-		label_4.setText(Integer.toString(spek_ai));
+		lblUserSpecTextAmount.setText(Integer.toString(spek_user));
+		lblOpponentSpecTextAmount.setText(Integer.toString(spek_ai));
 		STAKING = false;
 
 	}
@@ -376,20 +403,20 @@ public class Staker extends JFrame {
 				dharockhit = randInt(0, 85);
 			}
 			HP_ai = HP_ai - dharockhit;
-			hitt.setForeground(Color.red);
-			hitt.setText("You hit: " + "-" + Integer.toString(dharockhit));
-			label_1.setText(Integer.toString(HP_ai));
+			lblOpponentReceivedDmg.setForeground(Color.red);
+			lblOpponentReceivedDmg.setText("You hit: " + "-" + Integer.toString(dharockhit));
+			lblOpponentHp.setText(Integer.toString(HP_ai));
 		}
 		if (HP_ai <= 0) {
-			label_1.setText("0");
+			lblOpponentHp.setText("0");
 			checkDead();
 			return;
 		}
 		if (HP_user > 0) {
 			if (spek_user < 100) {
 				spek_user = spek_user + 5;
-				progressBar.setValue(spek_user);
-				lblNewLabel_4.setText(Integer.toString(spek_user));
+				userSpecialBar.setValue(spek_user);
+				lblUserSpecTextAmount.setText(Integer.toString(spek_user));
 			}
 			AIAttack();
 		}
@@ -397,7 +424,7 @@ public class Staker extends JFrame {
 	}
 
 	public void actionDDS(ActionEvent ev) {
-		label_2.setText("");
+		lblUserHealing.setText("");
 		if (HP_ai <= 0) {
 			return;
 		}
@@ -408,29 +435,29 @@ public class Staker extends JFrame {
 			int total = Special + Speciall;
 
 			HP_ai = HP_ai - total;
-			hitt.setForeground(Color.red);
-			hitt.setText("You hit: " + "-" + Integer.toString(Special) + " -" + Integer.toString(Speciall));
+			lblOpponentReceivedDmg.setForeground(Color.red);
+			lblOpponentReceivedDmg.setText("You hit: " + "-" + Integer.toString(Special) + " -" + Integer.toString(Speciall));
 			if (HP_ai <= 0) {
-				label_1.setText("0");
+				lblOpponentHp.setText("0");
 			}
-			label_1.setText(Integer.toString(HP_ai));
+			lblOpponentHp.setText(Integer.toString(HP_ai));
 
 		} else {
 			return;
 		}
 		spek_user = spek_user - 25;
-		progressBar.setValue(spek_user);
+		userSpecialBar.setValue(spek_user);
 		if (spek_user < 100) {
 			spek_user = spek_user + 5;
-			progressBar.setValue(spek_user);
+			userSpecialBar.setValue(spek_user);
 		}
-		lblNewLabel_4.setText(Integer.toString(spek_user));
+		lblUserSpecTextAmount.setText(Integer.toString(spek_user));
 		AIAttack();
 		checkDead();
 	}
 
 	public void actionAgs(ActionEvent ags) {
-		label_2.setText("");
+		lblUserHealing.setText("");
 		checkDead();
 		if (HP_ai <= 0) {
 			return;
@@ -442,14 +469,14 @@ public class Staker extends JFrame {
 
 				HP_ai = HP_ai - agss;
 				if (HP_ai == 0) {
-					label_1.setText("0");
+					lblOpponentHp.setText("0");
 				}
-				label_1.setText(Integer.toString(HP_ai));
+				lblOpponentHp.setText(Integer.toString(HP_ai));
 				if (agss < 1) {
-					hit.setText("Missed!");
+					lblUserReceivedDmg.setText("Missed!");
 				} else {
-					hitt.setForeground(Color.red);
-					hitt.setText("You hit: " + "-" + Integer.toString(agss));
+					lblOpponentReceivedDmg.setForeground(Color.red);
+					lblOpponentReceivedDmg.setText("You hit: " + "-" + Integer.toString(agss));
 				}
 				AIAttack();
 			} else if (HP_ai > 0 && spek_user < 50) {
@@ -457,11 +484,11 @@ public class Staker extends JFrame {
 				return;
 			}
 			spek_user = spek_user - 50;
-			progressBar.setValue(spek_user);
+			userSpecialBar.setValue(spek_user);
 			if (spek_user < 100) {
 				spek_user = spek_user + 5;
-				progressBar.setValue(spek_user);
-				lblNewLabel_4.setText(Integer.toString(spek_user));
+				userSpecialBar.setValue(spek_user);
+				lblUserSpecTextAmount.setText(Integer.toString(spek_user));
 			}
 
 			checkDead();
@@ -470,8 +497,8 @@ public class Staker extends JFrame {
 	}
 
 	public void actionWhip(ActionEvent iv) {
-		lblNewLabel_4.setText(Integer.toString(spek_user));
-		label_2.setText("");
+		lblUserSpecTextAmount.setText(Integer.toString(spek_user));
+		lblUserHealing.setText("");
 		checkDead();
 		if (HP_ai <= 0) {
 			return;
@@ -481,19 +508,19 @@ public class Staker extends JFrame {
 
 			if (spek_user < 100) {
 				spek_user = spek_user + 5;
-				progressBar.setValue(spek_user);
-				lblNewLabel_4.setText(Integer.toString(spek_user));
+				userSpecialBar.setValue(spek_user);
+				lblUserSpecTextAmount.setText(Integer.toString(spek_user));
 			}
 			HP_ai = HP_ai - whip;
 			if (HP_ai == 0) {
-				label_1.setText("0");
+				lblOpponentHp.setText("0");
 			}
-			label_1.setText(Integer.toString(HP_ai));
+			lblOpponentHp.setText(Integer.toString(HP_ai));
 			if (whip < 1) {
-				hit.setText("Missed!");
+				lblUserReceivedDmg.setText("Missed!");
 			} else {
-				hitt.setForeground(Color.red);
-				hitt.setText("You hit: " + "-" + Integer.toString(whip));
+				lblOpponentReceivedDmg.setForeground(Color.red);
+				lblOpponentReceivedDmg.setText("You hit: " + "-" + Integer.toString(whip));
 			}
 			AIAttack();
 		} else {
@@ -525,8 +552,8 @@ public class Staker extends JFrame {
 		}
 		if (spek_ai < 100) {
 			spek_ai = spek_ai + 5;
-			progressBar_1.setValue(spek_ai);
-			label_4.setText(Integer.toString(spek_ai));
+			OpponentSpecialBar.setValue(spek_ai);
+			lblOpponentSpecTextAmount.setText(Integer.toString(spek_ai));
 		}
 		checkDead();
 	}
@@ -559,16 +586,16 @@ public class Staker extends JFrame {
 				dharockhit = randInt(0, 65);
 			}
 
-			hit.setForeground(Color.red);
+			lblUserReceivedDmg.setForeground(Color.red);
 			HP_user = HP_user - dharockhit;
 			if (HP_user <= 0) {
-				hit.setText("Dharok: " + "-" + hpnu);
-				label.setText(Integer.toString(HP_user));
+				lblUserReceivedDmg.setText("Dharok: " + "-" + hpnu);
+				lblUserHp.setText(Integer.toString(HP_user));
 				checkDead();
 				return;
 			} else {
-				label.setText(Integer.toString(HP_user));
-				hit.setText("Dharok: " + "-" + Integer.toString(dharockhit));
+				lblUserHp.setText(Integer.toString(HP_user));
+				lblUserReceivedDmg.setText("Dharok: " + "-" + Integer.toString(dharockhit));
 			}
 		}
 		checkDead();
@@ -578,15 +605,15 @@ public class Staker extends JFrame {
 	private void AIShark() {
 		checkDead();
 		shark_ai = shark_ai - 1;
-		shark2.setText(Integer.toString(shark_ai));
+		OpponentSharkAmount.setText(Integer.toString(shark_ai));
 		HP_ai = HP_ai + 40;
 		if (HP_ai >= 99) {
 			HP_ai = 99;
 		}
-		hitt.setForeground(Color.green);
-		hitt.setText("+40");
-		label_1.setText(Integer.toString(HP_ai));
-		hit.setText("");
+		lblOpponentReceivedDmg.setForeground(Color.green);
+		lblOpponentReceivedDmg.setText("+40");
+		lblOpponentHp.setText(Integer.toString(HP_ai));
+		lblUserReceivedDmg.setText("");
 		checkDead();
 
 	}
@@ -601,21 +628,21 @@ public class Staker extends JFrame {
 			} else {
 				specialAgs = randInt(0, 68);
 			}
-			hit.setForeground(Color.red);
+			lblUserReceivedDmg.setForeground(Color.red);
 			HP_user = HP_user - specialAgs;
 			if (HP_user <= 0) {
-				hit.setText("AGS:- " + hpnu);
-				label.setText(Integer.toString(HP_user));
+				lblUserReceivedDmg.setText("AGS:- " + hpnu);
+				lblUserHp.setText(Integer.toString(HP_user));
 				checkDead();
 				return;
 			} else {
-				label.setText(Integer.toString(HP_user));
-				hit.setText("AGS:- " + Integer.toString(specialAgs));
+				lblUserHp.setText(Integer.toString(HP_user));
+				lblUserReceivedDmg.setText("AGS:- " + Integer.toString(specialAgs));
 			}
 		}
 
 		spek_ai = spek_ai - 50;
-		progressBar_1.setValue(spek_ai);
+		OpponentSpecialBar.setValue(spek_ai);
 		checkDead();
 	}
 
@@ -628,20 +655,20 @@ public class Staker extends JFrame {
 			int total = Special + Speciall;
 
 			HP_user = HP_user - total;
-			hit.setForeground(Color.red);
+			lblUserReceivedDmg.setForeground(Color.red);
 			if (HP_user <= 0) {
-				hit.setText("DDS:-" + hpnu + " - 0");
-				label.setText(Integer.toString(HP_user));
+				lblUserReceivedDmg.setText("DDS:-" + hpnu + " - 0");
+				lblUserHp.setText(Integer.toString(HP_user));
 				checkDead();
 				return;
 			} else {
-				hit.setText("DDS:- " + Integer.toString(Special) + " - " + Integer.toString(Speciall));
-				label.setText(Integer.toString(HP_user));
+				lblUserReceivedDmg.setText("DDS:- " + Integer.toString(Special) + " - " + Integer.toString(Speciall));
+				lblUserHp.setText(Integer.toString(HP_user));
 			}
 
 		}
 		spek_ai = spek_ai - 25;
-		progressBar_1.setValue(spek_ai);
+		OpponentSpecialBar.setValue(spek_ai);
 		checkDead();
 	}
 
@@ -651,20 +678,20 @@ public class Staker extends JFrame {
 		if (HP_user > 0) {
 			int whip = randInt(0, 26);
 
-			hit.setForeground(Color.red);
+			lblUserReceivedDmg.setForeground(Color.red);
 			if (whip < 1) {
-				hit.setText("Whip: " + whip);
+				lblUserReceivedDmg.setText("Whip: " + whip);
 			} else {
-				hit.setText("Whip:- " + Integer.toString(whip));
+				lblUserReceivedDmg.setText("Whip:- " + Integer.toString(whip));
 				HP_user = HP_user - whip;
 				if (HP_user <= 0) {
-					hit.setText("Whip:- " + hpnu);
-					label.setText(Integer.toString(HP_user));
+					lblUserReceivedDmg.setText("Whip:- " + hpnu);
+					lblUserHp.setText(Integer.toString(HP_user));
 					checkDead();
 					return;
 				} else {
-					label.setText(Integer.toString(HP_user));
-					hit.setText("Whip:- " + Integer.toString(whip));
+					lblUserHp.setText(Integer.toString(HP_user));
+					lblUserReceivedDmg.setText("Whip:- " + Integer.toString(whip));
 				}
 			}
 
@@ -681,8 +708,8 @@ public class Staker extends JFrame {
 			if (HP_user > 0 && HP_user < 99) {
 				if (spek_user < 100) {
 					spek_user = spek_user + 5;
-					progressBar.setValue(spek_user);
-					lblNewLabel_4.setText(Integer.toString(spek_user));
+					userSpecialBar.setValue(spek_user);
+					lblUserSpecTextAmount.setText(Integer.toString(spek_user));
 				}
 				if (!checkDead()) {
 					HP_user = HP_user + 40;
@@ -692,19 +719,19 @@ public class Staker extends JFrame {
 				if (HP_user >= 99) {
 					HP_user = 99;
 				}
-				label_2.setForeground(Color.green);
-				label_2.setText("+40");
-				label.setText(Integer.toString(HP_user));
+				lblUserHealing.setForeground(Color.green);
+				lblUserHealing.setText("+40");
+				lblUserHp.setText(Integer.toString(HP_user));
 				AIAttack();
-				shark1.setText(Integer.toString(shark_user));
+				playerSharkAmount.setText(Integer.toString(shark_user));
 			} else {
-				hit.setText("You're full");
+				lblUserReceivedDmg.setText("You're full");
 			}
 
 			if (HP_user <= 0) {
 				HP_user = 0;
-				label_2.setText("");
-				label.setText("You Lost");
+				lblUserHealing.setText("");
+				lblUserHp.setText("You Lost");
 			}
 
 		}
@@ -720,29 +747,29 @@ public class Staker extends JFrame {
 
 	public boolean checkDead() {
 		if (HP_ai == 0 && HP_user == 0) {
-			label.setText("Tie");
-			label_1.setText("Tie");
+			lblUserHp.setText("Tie");
+			lblOpponentHp.setText("Tie");
 			STAKING = false;
 
 		}
 		if (HP_ai <= 0 || HP_user <= 0) {
 			if (HP_ai <= 0) {
-				label_1.setText("0");
-				label.setText("You Won");
+				lblOpponentHp.setText("0");
+				lblUserHp.setText("You Won");
 				tussengeld = MONEY;
 				System.out.println(tussengeld);
 				MONEY = (STAKED * 2) + tussengeld;
-				money.setText(Integer.toString(MONEY));
+				lblStakeAmountCurrent.setText(Integer.toString(MONEY));
 
 				int won = STAKED;
-				label_3.setText("Won: " + Integer.toString(won) + " mill");
+				lblStakeWinLoss.setText("Won: " + Integer.toString(won) + " mill");
 				checkPet();
 				STAKING = false;
 				STAKED = 0;
 			} else if (HP_user <= 0) {
-				label.setText("You Lost");
+				lblUserHp.setText("You Lost");
 				int won = STAKED;
-				label_3.setText("Lost: " + Integer.toString(won) + " mill");
+				lblStakeWinLoss.setText("Lost: " + Integer.toString(won) + " mill");
 				STAKING = false;
 			}
 			return true;
@@ -759,18 +786,18 @@ public class Staker extends JFrame {
 		System.out.println(stakePet + "  " + petLuck);
 		System.out.println(STAKING);
 		if (petLuck == stakePet && STAKED > 0) {
-			label_pet.setText("You received a staking pet!");
+			label_Pet.setText("You received a staking pet!");
 			int welke = randInt(0, 5);
 			if (welke == 0) {
-				lblNewLabel_2.setIcon(pet_Lander);
+				lblPet.setIcon(pet_Lander);
 			} else if (welke == 1) {
-				lblNewLabel_2.setIcon(pet_Bandos);
+				lblPet.setIcon(pet_Bandos);
 			} else if (welke == 2) {
-				lblNewLabel_2.setIcon(pet_Dks);
+				lblPet.setIcon(pet_Dks);
 			} else if (welke == 3) {
-				lblNewLabel_2.setIcon(pet_Sara);
+				lblPet.setIcon(pet_Sara);
 			} else if (welke == 4) {
-				lblNewLabel_2.setIcon(pet_Jad);
+				lblPet.setIcon(pet_Jad);
 			}
 
 		}
