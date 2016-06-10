@@ -35,7 +35,7 @@ public class Bandos extends JFrame {
 	JLabel lblYouReceived = new JLabel();
 	
 	ImageIcon hilt = new ImageIcon(getClass().getResource("hilt.png"));
-	ImageIcon pet = new ImageIcon(getClass().getResource("pett.png"));
+	ImageIcon pet = new ImageIcon(getClass().getResource("pet_Bandos.png"));
 	ImageIcon tassets = new ImageIcon(getClass().getResource("tassets.png"));
 	ImageIcon bcp = new ImageIcon(getClass().getResource("bcp.png"));
 	ImageIcon shard = new ImageIcon(getClass().getResource("shard.png"));

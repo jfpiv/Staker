@@ -51,12 +51,12 @@ public class Staker extends JFrame {
 	private JLabel shark1 = new JLabel(Integer.toString(shark_user));
 	private JLabel shark2 = new JLabel(Integer.toString(shark_ai));
 	private JLabel lblNewLabel_1 = new JLabel();
-	ImageIcon image1;
-	ImageIcon image2 = new ImageIcon(getClass().getResource("pet.png"));
-	ImageIcon image3 = new ImageIcon(getClass().getResource("pett.png"));
-	ImageIcon image4 = new ImageIcon(getClass().getResource("pettt.png"));
-	ImageIcon image5 = new ImageIcon(getClass().getResource("petttt.png"));
-	ImageIcon image6 = new ImageIcon(getClass().getResource("pettttt.png"));
+	ImageIcon header_RS_Logo; 
+	ImageIcon pet_Lander = new ImageIcon(getClass().getResource("pet_Lander.png"));
+	ImageIcon pet_Bandos = new ImageIcon(getClass().getResource("pet_Bandos.png"));
+	ImageIcon pet_Dks = new ImageIcon(getClass().getResource("pet_Dks.png"));
+	ImageIcon pet_Sara = new ImageIcon(getClass().getResource("pet_Sara.png"));
+	ImageIcon pet_Jad = new ImageIcon(getClass().getResource("pet_Jad.png"));
 	private final JButton btnReset = new JButton("Restart");
 	private JLabel lblNewLabel_2 = new JLabel();
 	ImageIcon icon = new ImageIcon(getClass().getResource("bandos.png"));
@@ -74,8 +74,8 @@ public class Staker extends JFrame {
 		setSize(700, 700);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
-		image1 = new ImageIcon(getClass().getResource("RS_logo_old.png"));
-		lblNewLabel_1 = new JLabel(image1);
+		header_RS_Logo = new ImageIcon(getClass().getResource("RS_logo_old.png"));
+		lblNewLabel_1 = new JLabel(header_RS_Logo);
 
 		ImageIcon whipimg = new ImageIcon(getClass().getResource("whip.png"));
 		JLabel whippic = new JLabel(whipimg);
@@ -762,20 +762,15 @@ public class Staker extends JFrame {
 			label_pet.setText("You received a staking pet!");
 			int welke = randInt(0, 5);
 			if (welke == 0) {
-				lblNewLabel_2.setIcon(image2);
-				System.out.println("Lander");
+				lblNewLabel_2.setIcon(pet_Lander);
 			} else if (welke == 1) {
-				lblNewLabel_2.setIcon(image3);
-				System.out.println("Bandos");
+				lblNewLabel_2.setIcon(pet_Bandos);
 			} else if (welke == 2) {
-				lblNewLabel_2.setIcon(image4);
-				System.out.println("Dagg");
+				lblNewLabel_2.setIcon(pet_Dks);
 			} else if (welke == 3) {
-				lblNewLabel_2.setIcon(image5);
-				System.out.println("Zilly");
+				lblNewLabel_2.setIcon(pet_Sara);
 			} else if (welke == 4) {
-				System.out.println("Jad");
-				lblNewLabel_2.setIcon(image6);
+				lblNewLabel_2.setIcon(pet_Jad);
 			}
 
 		}

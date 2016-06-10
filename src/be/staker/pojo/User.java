@@ -1,10 +1,12 @@
 package be.staker.pojo;
 
+import java.awt.Color;
+
 import be.staker.ui.*;
 import be.staker.util.Util;
 
 public class User {
-	public static final int MAX_HEALTH = 100;
+	public static final int MAX_HEALTH = 99;
 	public static final int MIN_HEALTH = 0;
 	
 	private int hp;
@@ -13,9 +15,16 @@ public class User {
 	private Shark shark;
 	
 	private Weapon whip;
+	private int damageWhip = Util.randInt(0, 26);
+	
 	private Weapon dharok;
+	
+	
 	private Weapon dds;
+	int damageDds = Util.randInt(0, 32);
+	
 	private Weapon ags;
+	
 	
 	public User(int hp, Shark shark, int spec, int stake){
 		this.setHp(hp);
@@ -66,6 +75,7 @@ public class User {
 			this.hp = this.hp - damage;
 			return "Damage";
 		} else {
+			this.setHp(0);
 			return "isDead";
 		}
 	}
@@ -140,7 +150,69 @@ public class User {
 	}
 	
 	private void doWhip(User target){
-		//Logica damage calculation
+		if(!this.isDead()){
+			this.hp -= damageWhip;
+			//aihpipv user!
+			
+			this.spec += 5;
+			
+			
+			
+			
+		}
+		
+		
+//		notenougspek.setText("");
+//		if (HP_boss <= 0) {
+//			return;
+//		}
+//		if (hp_user <= 0) {
+//			hp_user = 0;
+//			lblhpuser.setText("0");
+//			return;
+//		}
+//		checkDead();
+//		if (HP_boss > 0) {
+//			int whip = randInt(0, 35);
+//
+//			if (spek_user < 100) {
+//				spek_user = spek_user + 5;
+//				spekuser.setValue(spek_user);
+//				spekint.setText(Integer.toString(spek_user));
+//			}
+//			HP_boss = HP_boss - whip;
+//
+//			if (whip < 1) {
+//				lbluserdamage.setText("0");
+//			} else {
+//				lbluserdamage.setForeground(Color.red);
+//				lbluserdamage.setText("You hit: " + "-" + Integer.toString(whip));
+//
+//			}
+//			progressBar.setValue(HP_boss - whip);
+//			lblhpboss.setText(Integer.toString(HP_boss));
+//			if (HP_boss == 0) {
+//				lblhpboss.setText("0");
+//			}
+//			if (hp_user <= 0) {
+//				hp_user = 0;
+//				lblhpuser.setText("0");
+//				return;
+//			} else {
+//				AIAttack();
+//			}
+//		} else {
+//			return;
+//		}
+//		if (HP_boss <= 0) {
+//			HP_boss = 0;
+//			lblhpboss.setText("0");
+//			progressBar.setValue(HP_boss);
+//			return;
+//		}
+//		progressBar.setValue(HP_boss);
+//		checkDead();
+//		
 	}
 	
 	private void doDharok(User target){
