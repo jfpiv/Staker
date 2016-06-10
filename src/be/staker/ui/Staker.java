@@ -6,6 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextPane;
 
+import be.staker.pojo.Shark;
+import be.staker.pojo.User;
+import be.staker.pojo.Weapon;
 import be.staker.ui.Bandos;
 
 import java.awt.Font;
@@ -17,7 +20,6 @@ import javax.swing.JProgressBar;
 
 public class Staker extends JFrame {
 
-	float fontGrootte = 35;
 	
 	int HP_user = 99;
 	int HP_ai = 99;
@@ -39,9 +41,9 @@ public class Staker extends JFrame {
 	//user
 	JLabel lblUserHp = new JLabel(Integer.toString(HP_user));
 	JLabel lblUserReceivedDmg = new JLabel();
+	JLabel playerSharkAmount = new JLabel(Integer.toString(shark_user));
 	JLabel lblUserHealing = new JLabel();
 	JLabel lblUserSpecTextAmount = new JLabel(Integer.toString(spek_user));
-	JLabel playerSharkAmount = new JLabel(Integer.toString(shark_user));
 	
 	//opponent
 	JLabel lblOpponentHp = new JLabel(Integer.toString(HP_ai));
@@ -68,7 +70,7 @@ public class Staker extends JFrame {
 	
 	//buttons
 	JButton btnReset = new JButton("Restart");
-	JButton btnAgs = new JButton("AGS (50)");
+	
 	JButton btnStartStake = new JButton("Start");
 
 	//invoerveld
@@ -95,32 +97,20 @@ public class Staker extends JFrame {
 	ImageIcon coins = new ImageIcon(getClass().getResource("coins.png"));
 	
 	//randombooleans
-	boolean spek = true;
-	boolean spekk = true;
 	boolean STAKING;
 
 	public Staker() {
 		super("Staker");
+		
+		User player = new User(99, new Shark(5, 20, 5), 100, 10);
+		User ui = new User(99, new Shark(5, 20, 5), 100, 10);
+		
 		setSize(700, 700);
 		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
+		
 		header_RS_Logo = new ImageIcon(getClass().getResource("RS_logo_old.png"));
 		lblLogoHeader = new JLabel(header_RS_Logo);
-
-		ImageIcon whipimg = new ImageIcon(getClass().getResource("whip.png"));
-		JLabel lblWeaponWhipImg = new JLabel(whipimg);
-
-		ImageIcon ddsimg = new ImageIcon(getClass().getResource("dds.png"));
-		JLabel lblWeaponDdsImg = new JLabel(ddsimg);
-
-		ImageIcon agsimg = new ImageIcon(getClass().getResource("ags.png"));
-		JLabel lblWeaponAgsImg = new JLabel(agsimg);
-
-		ImageIcon dhimg = new ImageIcon(getClass().getResource("dh.png"));
-		JLabel lblWeaponDhImg = new JLabel(dhimg);
-
-		ImageIcon sharkimg = new ImageIcon(getClass().getResource("shark.png"));
-		JLabel lblSharkImg = new JLabel(sharkimg);
 
 		lblUserHp.setFont(new Font("Tahoma", Font.PLAIN, 28));
 		lblUserHp.setBounds(167, 293, 140, 55);
@@ -140,24 +130,64 @@ public class Staker extends JFrame {
 		lblOpponentYourHp.setBounds(362, 236, 176, 41);
 		getContentPane().add(lblOpponentYourHp);
 
-		JButton btnDds = new JButton("DDS (25)");
-		btnDds.addActionListener(ev -> actionDDS(ev));
-		btnDds.setToolTipText("Uses 25% Special-bar");
-		btnDds.setBounds(34, 413, 89, 23);
-		getContentPane().add(btnDds);
-
+		
+		/*
+		 * Buttons
+		 */
 		JButton btnWhip = new JButton("Whip");
-		btnWhip.addActionListener(iv -> actionWhip(iv));
+		btnWhip.addActionListener(whip -> player.doAttack(Weapon.WHIP, ui));
+		btnWhip.addActionListener(whip -> lblOpponentReceivedDmg.setText(Integer.toString(player.getWhip().getHit())));
 		btnWhip.setToolTipText("Hit quite accurate");
 		btnWhip.setBounds(34, 346, 89, 23);
 		getContentPane().add(btnWhip);
+		
+		ImageIcon whipimg = new ImageIcon(getClass().getResource("whip.png"));
+		JLabel lblWeaponWhipImg = new JLabel(whipimg);
 
+		
+		JButton btnDh = new JButton("Dharok");
+		btnDh.addActionListener(dharok -> player.doAttack(Weapon.DHAROK, ui));
+		btnDh.addActionListener(dh -> dharok());
+		btnDh.setToolTipText("Hit higher when less hp");
+		btnDh.setBounds(34, 548, 89, 23);
+		getContentPane().add(btnDh);
+		
+		ImageIcon dhimg = new ImageIcon(getClass().getResource("dh.png"));
+		JLabel lblWeaponDhImg = new JLabel(dhimg);
+		
+		
+		JButton btnDds = new JButton("DDS (25)");
+		btnDds.addActionListener(dds -> player.doAttack(Weapon.DDS, ui));
+		btnDds.setToolTipText("Uses 25% Special-bar");
+		btnDds.setBounds(34, 413, 89, 23);
+		getContentPane().add(btnDds);
+		
+		ImageIcon ddsimg = new ImageIcon(getClass().getResource("dds.png"));
+		JLabel lblWeaponDdsImg = new JLabel(ddsimg);
+
+		
+		JButton btnAgs = new JButton("AGS (50)");
+		btnAgs.addActionListener(ags -> player.doAttack(Weapon.AGS, ui));
+		btnAgs.setToolTipText("Hit hard!");
+		btnAgs.setBounds(34, 479, 89, 23);
+		getContentPane().add(btnAgs);
+		
+
+		ImageIcon agsimg = new ImageIcon(getClass().getResource("ags.png"));
+		JLabel lblWeaponAgsImg = new JLabel(agsimg);
+		
+		
 		JButton btnEatShark = new JButton("Eat Shark");
-		btnEatShark.addActionListener(ov -> actionShark(ov));
+		btnEatShark.addActionListener(ov -> player.eatShark());
 		btnEatShark.setToolTipText("Heals 20 hp");
 		btnEatShark.setBounds(157, 445, 89, 23);
 		getContentPane().add(btnEatShark);
+		
+		ImageIcon sharkimg = new ImageIcon(getClass().getResource("shark.png"));
+		JLabel lblSharkImg = new JLabel(sharkimg);
 
+		
+		
 		lblUserReceivedDmg.setForeground(Color.BLACK);
 		lblUserReceivedDmg.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblUserReceivedDmg.setBounds(166, 328, 132, 41);
@@ -168,27 +198,24 @@ public class Staker extends JFrame {
 		lblOpponentReceivedDmg.setBounds(362, 335, 150, 31);
 		getContentPane().add(lblOpponentReceivedDmg);
 
-		lblUserHealing.setBounds(234, 309, 89, 39);
-		getContentPane().add(lblUserHealing);
+		//lblUserHealing.setBounds(234, 309, 89, 39);
+		//getContentPane().add(lblUserHealing);
 
-		btnAgs.setBounds(34, 479, 89, 23);
-		getContentPane().add(btnAgs);
-		btnAgs.setToolTipText("Hit hard!");
-		btnAgs.addActionListener(ags -> actionAgs(ags));
+		
 
 		userSpecialBar.setForeground(new Color(50, 205, 50));
 		userSpecialBar.setValue(100);
 		userSpecialBar.setBounds(148, 557, 146, 14);
 		getContentPane().add(userSpecialBar);
 
+		OpponentSpecialBar.setForeground(new Color(50, 205, 50));
+		OpponentSpecialBar.setValue(100);
+		OpponentSpecialBar.setBounds(397, 557, 146, 14);
+		getContentPane().add(OpponentSpecialBar);
+		
 		lblNewLabel.setBounds(142, 573, 146, 23);
 		getContentPane().add(lblNewLabel);
-		OpponentSpecialBar.setForeground(new Color(50, 205, 50));
-		OpponentSpecialBar.setBounds(397, 557, 146, 14);
-		OpponentSpecialBar.setValue(100);
-
-		getContentPane().add(OpponentSpecialBar);
-
+		
 		stakeAmountInputField.setBounds(305, 445, 89, 23);
 		getContentPane().add(stakeAmountInputField);
 
@@ -241,15 +268,7 @@ public class Staker extends JFrame {
 
 		getContentPane().add(lblPet);
 
-		JButton btnDh = new JButton("Dharok");
-		btnDh.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent dh) {
-				dharok();
-			}
-		});
-		btnDh.setToolTipText("Hit higher when less hp");
-		btnDh.setBounds(34, 548, 89, 23);
-		getContentPane().add(btnDh);
+		
 
 		JLabel lblPlayerName = new JLabel("Al-zuq yadik");
 		lblPlayerName.setBounds(167, 213, 140, 26);
@@ -271,16 +290,12 @@ public class Staker extends JFrame {
 		lblWeaponWhipImg.setBounds(56, 306, 40, 39);
 		getContentPane().add(lblWeaponWhipImg);
 		lblWeaponDdsImg.setBounds(56, 374, 40, 39);
-
 		getContentPane().add(lblWeaponDdsImg);
 		lblWeaponAgsImg.setBounds(59, 438, 40, 39);
-
 		getContentPane().add(lblWeaponAgsImg);
 		lblWeaponDhImg.setBounds(57, 505, 40, 39);
-
 		getContentPane().add(lblWeaponDhImg);
 		lblSharkImg.setBounds(181, 400, 40, 39);
-
 		getContentPane().add(lblSharkImg);
 
 		JButton btnBandos = new JButton("Bandos");
@@ -290,14 +305,9 @@ public class Staker extends JFrame {
 		initComponents();
 		layoutComponents();
 
-		if (HP_user <= 0) {
-			HP_user = 0;
-			lblUserHealing.setText("");
+		if (player.isDead()) {
 			lblUserHp.setText("You Lost");
-		}
-		if (HP_ai <= 0) {
-
-			HP_ai = 0;
+		} else {
 			lblUserHp.setText("You Won");
 		}
 

@@ -8,12 +8,12 @@ public class Weapon extends Button{
 	public final static int DDS = 3;
 	public final static int AGS = 4;
 
-	public Weapon(int hit, int addSpec, int decreaseSpec){
+	public Weapon(int addSpec, int decreaseSpec){
 		super(addSpec, decreaseSpec);
 		this.setHit(hit);
 	}
 	
-	public Weapon(int hit, int decreaseSpec){
+	public Weapon(int decreaseSpec){
 		super(5, decreaseSpec);
 		this.setHit(hit);
 	}

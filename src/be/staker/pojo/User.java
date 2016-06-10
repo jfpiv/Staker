@@ -23,13 +23,13 @@ public class User {
 		this.setSpec(spec);
 		this.setStake(stake);
 		
-		whip = new Weapon(Util.randInt(0, 26), 0);
-		dharok = new Weapon(0, 0);
-		dds = new Weapon(Util.randInt(0, 32), 25);
-		ags = new Weapon(0, 50);
+		whip = new Weapon(0);
+		dharok = new Weapon(0);
+		dds = new Weapon(25);
+		ags = new Weapon(50);
 	}
 	
-	
+
 	public int getHp() {
 		return hp;
 	}
@@ -54,6 +54,22 @@ public class User {
 	public void setShark(Shark shark) {
 		this.shark = shark;
 	}
+	
+	
+	public Weapon getWhip() {
+		return whip;
+	}
+	public Weapon getDharok() {
+		return dharok;
+	}
+	public Weapon getDds() {
+		return dds;
+	}
+	public Weapon getAgs() {
+		return ags;
+	}
+
+	
 	
 	public void addSpec(Weapon weapon) {
 		this.spec = this.spec + weapon.getAddSpec();
@@ -142,13 +158,12 @@ public class User {
 	
 	private void doWhip(User target){
 
+		this.whip.setHit(Util.randInt(0, 26));
 		target.decreaseHp(this.whip.getHit());
-		//aihpipv user!
 		
 		this.addSpec(this.whip);
 		this.decreaseSpec(this.whip);
 			
-		
 //		notenougspek.setText("");
 //		if (HP_boss <= 0) {
 //			return;
