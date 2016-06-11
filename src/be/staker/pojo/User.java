@@ -5,12 +5,13 @@ import be.staker.util.Util;
 public class User {
 	public static final int MAX_HEALTH = 99;
 	public static final int MIN_HEALTH = 0;
-	public static final int MAX_SPEC = 99;
+	public static final int MAX_SPEC = 100;
 	public static final int MIN_SPEC = 0;
 	
 	private int hp;
 	private int spec;
 	private int stake;
+	private int money;
 	private Shark shark;
 	private boolean isDead = false;
 	
@@ -19,11 +20,11 @@ public class User {
 	private Weapon dds;
 	private Weapon ags;
 	
-	public User(int hp, Shark shark, int spec, int stake){
+	public User(int hp, Shark shark, int spec, int money){
 		this.setHp(hp);
 		this.setShark(shark);
 		this.setSpec(spec);
-		this.setStake(stake);
+		this.setMoney(money);
 		
 		whip = new Weapon(0);
 		dharok = new Weapon(0);
@@ -59,6 +60,12 @@ public class User {
 	}
 	public void setStake(int stake) {
 		this.stake = stake;
+	}
+	public int getMoney() {
+		return money;
+	}
+	public void setMoney(int money) {
+		this.money = money;
 	}
 	public Shark getShark() {
 		return shark;
@@ -177,69 +184,59 @@ public class User {
 		this.decreaseSpec(this.whip);
 			
 		target.doAttack(this);
-		
-//		notenougspek.setText("");
-//		if (HP_boss <= 0) {
-//			return;
-//		}
-//		if (hp_user <= 0) {
-//			hp_user = 0;
-//			lblhpuser.setText("0");
-//			return;
-//		}
-//		checkDead();
-//		if (HP_boss > 0) {
-//			int whip = randInt(0, 35);
-//
-//			if (spek_user < 100) {
-//				spek_user = spek_user + 5;
-//				spekuser.setValue(spek_user);
-//				spekint.setText(Integer.toString(spek_user));
-//			}
-//			HP_boss = HP_boss - whip;
-//
-//			if (whip < 1) {
-//				lbluserdamage.setText("0");
-//			} else {
-//				lbluserdamage.setForeground(Color.red);
-//				lbluserdamage.setText("You hit: " + "-" + Integer.toString(whip));
-//
-//			}
-//			progressBar.setValue(HP_boss - whip);
-//			lblhpboss.setText(Integer.toString(HP_boss));
-//			if (HP_boss == 0) {
-//				lblhpboss.setText("0");
-//			}
-//			if (hp_user <= 0) {
-//				hp_user = 0;
-//				lblhpuser.setText("0");
-//				return;
-//			} else {
-//				AIAttack();
-//			}
-//		} else {
-//			return;
-//		}
-//		if (HP_boss <= 0) {
-//			HP_boss = 0;
-//			lblhpboss.setText("0");
-//			progressBar.setValue(HP_boss);
-//			return;
-//		}
-//		progressBar.setValue(HP_boss);
-//		checkDead();
-//		
+	
 	}
 	
 	private void doDharok(User target){
-		//Logica) damage calculation
+		
+		if (target.getHp() <= 99 && target.getHp() > 80) {
+			this.dharok.setHit(Util.randInt(0, 20));
+		} else if (target.getHp() <= 80 && target.getHp() > 60) {
+			this.dharok.setHit(Util.randInt(0, 25));
+		} else if (target.getHp() <= 60 && target.getHp() > 45) {
+			this.dharok.setHit(Util.randInt(0, 30));
+		} else if (target.getHp() <= 45 && target.getHp() > 35) {
+			this.dharok.setHit(Util.randInt(0, 35));
+		} else if (target.getHp() <= 35 && target.getHp() > 10) {
+			this.dharok.setHit(Util.randInt(0, 40));
+		} else if (target.getHp() <= 10 && target.getHp() > 5) {
+			this.dharok.setHit(Util.randInt(0, 45));
+		} else if (target.getHp() <= 5 && target.getHp() > 3) {
+			this.dharok.setHit(Util.randInt(0, 50));
+		} else if (target.getHp() <= 3 && target.getHp() > 1) {
+			this.dharok.setHit(Util.randInt(0, 55));
+		} else if (target.getHp() <= 1) {
+			this.dharok.setHit(Util.randInt(0, 60));
+		}
+		
+		target.decreaseHp(this.dharok.getHit());
+		
+		this.addSpec(this.dharok);
+		this.decreaseSpec(this.dharok);
+			
+		target.doAttack(this);
+		
 	}
 	
 	private void doDDS(User target){
-		//Logica damage calculation
+		
+		this.dds.setHit(Util.randInt(0, 60));
+		target.decreaseHp(this.dds.getHit());
+		
+		this.addSpec(this.dds);
+		this.decreaseSpec(this.dds);
+			
+		target.doAttack(this);
+		
 	}
 	
 	private void doAGS(User target){
-		//Logica damage calculation
+		this.ags.setHit(Util.randInt(0, 60));
+		target.decreaseHp(this.ags.getHit());
+		
+		this.addSpec(this.ags);
+		this.decreaseSpec(this.ags);
+			
+		target.doAttack(this);
 	}
 }

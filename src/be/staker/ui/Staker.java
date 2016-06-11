@@ -10,6 +10,7 @@ import be.staker.pojo.Shark;
 import be.staker.pojo.User;
 import be.staker.pojo.Weapon;
 import be.staker.ui.Bandos;
+import be.staker.util.Util;
 
 import java.awt.Font;
 import java.awt.event.ActionListener;
@@ -19,67 +20,43 @@ import java.awt.Color;
 import javax.swing.JProgressBar;
 
 public class Staker extends JFrame {
-
-	
-	int HP_user = 99;
-	int HP_ai = 99;
-	
-	int shark_ai = 5;
-	int shark_user = 5;
-	
-	int spek_user = 100;
-	int spek_ai = 100;
-	
-	int MONEY = 10;
-	int STAKED;
-	int tussengeld;
-	
+		
 	int stakePet = 1998;
 	
-	JLabel lblLogoHeader;
+	JLabel lblLogoHeader = new JLabel();;
 	
 	//user
-	JLabel lblUserHp = new JLabel(Integer.toString(HP_user));
-	JLabel lblUserReceivedDmg = new JLabel();
-	JLabel playerSharkAmount = new JLabel(Integer.toString(shark_user));
-	JLabel lblUserHealing = new JLabel();
-	JLabel lblUserSpecTextAmount = new JLabel(Integer.toString(spek_user));
+	JLabel lblPlayerHpText = new JLabel();
+	JLabel lblPlayerHpValue = new JLabel();
+	JLabel lblPlayerReceivedDmg = new JLabel();
+	JLabel lblPlayerSharkAmount = new JLabel();
+	JLabel lblPlayerSpecTextAmount = new JLabel();
+	JProgressBar pgrPlayerSpecialBar = new JProgressBar();
 	
 	//opponent
-	JLabel lblOpponentHp = new JLabel(Integer.toString(HP_ai));
+	JLabel lblOpponentHpText = new JLabel();
+	JLabel lblOpponentHpValue = new JLabel();
 	JLabel lblOpponentReceivedDmg = new JLabel();
-	JLabel OpponentSharkAmount = new JLabel(Integer.toString(shark_ai));
-	JLabel lblOpponentName = new JLabel("Berg jewsypoes");
+	JLabel lblOpponentSharkAmount = new JLabel();
 	JLabel lblOpponentSpecTextAmount = new JLabel();
+	JProgressBar pgrOpponentSpecialBar = new JProgressBar();
 	
 	//stake
-	JLabel lblTextCurrentAmount = new JLabel("Current Amount:");
-	JLabel lblStakeAmountCurrent = new JLabel(Integer.toString(MONEY));
+	final JLabel lblStakeAmountText = new JLabel("Current Amount:");
+	JLabel lblStakeAmountValue = new JLabel();
+	JTextPane txtStakeAmountInputField = new JTextPane();
 	JLabel lblStakeWinLoss = new JLabel();
 	
 	JLabel lblBuildVersion = new JLabel("Build: 0.2");
-	
-	//specbalks
-	JProgressBar userSpecialBar = new JProgressBar();
-	JProgressBar OpponentSpecialBar = new JProgressBar();
 	
 	//pet
 	JLabel lblPet = new JLabel();
 	JLabel label_Pet = new JLabel();
 	
-	
 	//buttons
-	JButton btnReset = new JButton("Restart");
-	
-	JButton btnStartStake = new JButton("Start");
-
-	//invoerveld
-	JTextPane stakeAmountInputField = new JTextPane();
-	
-	//geenflauwidee :doge:
-	JLabel lblNewLabel_1 = new JLabel();
-	JLabel lblNewLabel = new JLabel("");
-	
+	final JButton btnReset = new JButton("Restart");
+	final JButton btnStartStake = new JButton("Start");
+		
 	//labelsvooricons
 	JLabel ddspic = new JLabel();
 	JLabel agspic = new JLabel();
@@ -98,12 +75,12 @@ public class Staker extends JFrame {
 	
 	//randombooleans
 	boolean STAKING;
+	
+	User player = new User(99, new Shark(5, 20, 5), 100, 10);
+	User ai = new User(99, new Shark(5, 20, 5), 100, 10);
 
 	public Staker() {
 		super("Staker");
-		
-		User player = new User(99, new Shark(5, 20, 5), 100, 10);
-		User ai = new User(99, new Shark(5, 20, 5), 100, 10);
 		
 		setSize(700, 700);
 		setLocationRelativeTo(null);
@@ -111,44 +88,46 @@ public class Staker extends JFrame {
 		
 		header_RS_Logo = new ImageIcon(getClass().getResource("RS_logo_old.png"));
 		lblLogoHeader = new JLabel(header_RS_Logo);
+		lblLogoHeader.setBounds(171, 2, 438, 142);
+		getContentPane().add(lblLogoHeader);
 
-		JLabel lblPlayerYourHp = new JLabel("Your HP");
-		lblPlayerYourHp.setFont(new Font("Tahoma", Font.PLAIN, 34));
-		lblPlayerYourHp.setBounds(157, 241, 132, 31);
-		getContentPane().add(lblPlayerYourHp);
+		lblPlayerHpText.setText("Your HP");
+		lblPlayerHpText.setFont(new Font("Tahoma", Font.PLAIN, 34));
+		lblPlayerHpText.setBounds(157, 241, 132, 31);
+		getContentPane().add(lblPlayerHpText);
 
-		JLabel lblOpponentYourHp = new JLabel("Enemy HP");
-		lblOpponentYourHp.setFont(new Font("Tahoma", Font.PLAIN, 34));
-		lblOpponentYourHp.setBounds(362, 236, 176, 41);
-		getContentPane().add(lblOpponentYourHp);
+		lblOpponentHpText.setText("Enemy HP");
+		lblOpponentHpText.setFont(new Font("Tahoma", Font.PLAIN, 34));
+		lblOpponentHpText.setBounds(362, 236, 176, 41);
+		getContentPane().add(lblOpponentHpText);
 		
-		lblUserHp.setFont(new Font("Tahoma", Font.PLAIN, 28));
-		lblUserHp.setBounds(167, 293, 140, 55);
-		getContentPane().add(lblUserHp);
+		lblPlayerHpValue.setFont(new Font("Tahoma", Font.PLAIN, 28));
+		lblPlayerHpValue.setBounds(167, 293, 140, 55);
+		getContentPane().add(lblPlayerHpValue);
 
-		lblOpponentHp.setFont(new Font("Tahoma", Font.PLAIN, 28));
-		lblOpponentHp.setBounds(372, 293, 140, 55);
-		getContentPane().add(lblOpponentHp);
+		lblOpponentHpValue.setFont(new Font("Tahoma", Font.PLAIN, 28));
+		lblOpponentHpValue.setBounds(372, 293, 140, 55);
+		getContentPane().add(lblOpponentHpValue);
 
-		lblUserReceivedDmg.setForeground(Color.BLACK);
-		lblUserReceivedDmg.setFont(new Font("Tahoma", Font.PLAIN, 15));
-		lblUserReceivedDmg.setBounds(166, 328, 132, 41);
-		getContentPane().add(lblUserReceivedDmg);
+		lblPlayerReceivedDmg.setForeground(Color.BLACK);
+		lblPlayerReceivedDmg.setFont(new Font("Tahoma", Font.PLAIN, 15));
+		lblPlayerReceivedDmg.setBounds(166, 328, 132, 41);
+		getContentPane().add(lblPlayerReceivedDmg);
 
 		lblOpponentReceivedDmg.setForeground(Color.BLACK);
 		lblOpponentReceivedDmg.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblOpponentReceivedDmg.setBounds(362, 335, 150, 31);
 		getContentPane().add(lblOpponentReceivedDmg);
 
-		userSpecialBar.setForeground(new Color(50, 205, 50));
-		userSpecialBar.setValue(100);
-		userSpecialBar.setBounds(148, 557, 146, 14);
-		getContentPane().add(userSpecialBar);
+		pgrPlayerSpecialBar.setForeground(new Color(50, 205, 50));
+		pgrPlayerSpecialBar.setValue(100);
+		pgrPlayerSpecialBar.setBounds(148, 557, 146, 14);
+		getContentPane().add(pgrPlayerSpecialBar);
 
-		OpponentSpecialBar.setForeground(new Color(50, 205, 50));
-		OpponentSpecialBar.setValue(100);
-		OpponentSpecialBar.setBounds(397, 557, 146, 14);
-		getContentPane().add(OpponentSpecialBar);
+		pgrOpponentSpecialBar.setForeground(new Color(50, 205, 50));
+		pgrOpponentSpecialBar.setValue(100);
+		pgrOpponentSpecialBar.setBounds(397, 557, 146, 14);
+		getContentPane().add(pgrOpponentSpecialBar);
 		
 		
 		
@@ -160,11 +139,11 @@ public class Staker extends JFrame {
 		    public void actionPerformed(ActionEvent e) {
 		        player.doAttack(Weapon.WHIP, ai);
 		        lblOpponentReceivedDmg.setText(Integer.toString(player.getWhip().getHit()));
-		        lblOpponentHp.setText(Integer.toString(ai.getHp()));
-		        lblUserReceivedDmg.setText(Integer.toString(ai.getWhip().getHit()));
-		        lblUserHp.setText(Integer.toString(player.getHp()));
-		        userSpecialBar.setValue(player.getSpec());
-		        OpponentSpecialBar.setValue(ai.getSpec());
+		        lblOpponentHpValue.setText(Integer.toString(ai.getHp()));
+		        lblPlayerReceivedDmg.setText(Integer.toString(ai.getWhip().getHit()));
+		        lblPlayerHpValue.setText(Integer.toString(player.getHp()));
+		        pgrPlayerSpecialBar.setValue(player.getSpec());
+		        pgrOpponentSpecialBar.setValue(ai.getSpec());
 		    }
 		});
 		btnWhip.setToolTipText("Hit quite accurate");
@@ -180,9 +159,11 @@ public class Staker extends JFrame {
 		    public void actionPerformed(ActionEvent e) {
 		        player.doAttack(Weapon.DHAROK, ai);
 		        lblOpponentReceivedDmg.setText(Integer.toString(player.getDharok().getHit()));
-		        lblOpponentHp.setText(Integer.toString(ai.getHp()));
-		        lblUserReceivedDmg.setText(Integer.toString(ai.getDharok().getHit()));
-		        lblUserHp.setText(Integer.toString(player.getHp()));
+		        lblOpponentHpValue.setText(Integer.toString(ai.getHp()));
+		        lblPlayerReceivedDmg.setText(Integer.toString(ai.getDharok().getHit()));
+		        lblPlayerHpValue.setText(Integer.toString(player.getHp()));
+		        pgrPlayerSpecialBar.setValue(player.getSpec());
+		        pgrOpponentSpecialBar.setValue(ai.getSpec());
 		    }
 		});
 		btnDh.setToolTipText("Hit higher when less hp");
@@ -198,9 +179,11 @@ public class Staker extends JFrame {
 		    public void actionPerformed(ActionEvent e) {
 		        player.doAttack(Weapon.DDS, ai);
 		        lblOpponentReceivedDmg.setText(Integer.toString(player.getDds().getHit()));
-		        lblOpponentHp.setText(Integer.toString(ai.getHp()));
-		        lblUserReceivedDmg.setText(Integer.toString(ai.getDds().getHit()));
-		        lblUserHp.setText(Integer.toString(player.getHp()));
+		        lblOpponentHpValue.setText(Integer.toString(ai.getHp()));
+		        lblPlayerReceivedDmg.setText(Integer.toString(ai.getDds().getHit()));
+		        lblPlayerHpValue.setText(Integer.toString(player.getHp()));
+		        pgrPlayerSpecialBar.setValue(player.getSpec());
+		        pgrOpponentSpecialBar.setValue(ai.getSpec());
 		    }
 		});
 		btnDds.setToolTipText("Uses 25% Special-bar");
@@ -216,9 +199,11 @@ public class Staker extends JFrame {
 		    public void actionPerformed(ActionEvent e) {
 		        player.doAttack(Weapon.AGS, ai);
 		        lblOpponentReceivedDmg.setText(Integer.toString(player.getAgs().getHit()));
-		        lblOpponentHp.setText(Integer.toString(ai.getHp()));
-		        lblUserReceivedDmg.setText(Integer.toString(ai.getAgs().getHit()));
-		        lblUserHp.setText(Integer.toString(player.getHp()));
+		        lblOpponentHpValue.setText(Integer.toString(ai.getHp()));
+		        lblPlayerReceivedDmg.setText(Integer.toString(ai.getAgs().getHit()));
+		        lblPlayerHpValue.setText(Integer.toString(player.getHp()));
+		        pgrPlayerSpecialBar.setValue(player.getSpec());
+		        pgrOpponentSpecialBar.setValue(ai.getSpec());
 		    }
 		});
 		btnAgs.setToolTipText("Hit hard!");
@@ -234,12 +219,12 @@ public class Staker extends JFrame {
 		btnEatShark.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        player.eatShark();
-		        lblUserReceivedDmg.setText(Integer.toString(player.getShark().getHealing()));
-		        lblUserHp.setText(Integer.toString(player.getHp()));
+		        lblPlayerReceivedDmg.setText(Integer.toString(player.getShark().getHealing()));
+		        lblPlayerHpValue.setText(Integer.toString(player.getHp()));
 		        
 		        
-		        playerSharkAmount.setText(Integer.toString(player.getShark().getAmount()));
-		        OpponentSharkAmount.setText(Integer.toString(ai.getShark().getAmount()));
+		        lblPlayerSharkAmount.setText(Integer.toString(player.getShark().getAmount()));
+		        lblOpponentSharkAmount.setText(Integer.toString(ai.getShark().getAmount()));
 		    }
 		});
 		btnEatShark.setToolTipText("Heals 20 hp");
@@ -248,32 +233,24 @@ public class Staker extends JFrame {
 		
 		ImageIcon sharkimg = new ImageIcon(getClass().getResource("shark.png"));
 		JLabel lblSharkImg = new JLabel(sharkimg);
-
-		
-
-		
-		lblNewLabel.setBounds(142, 573, 146, 23);
-		getContentPane().add(lblNewLabel);
 		
 		
 		/*
 		 * Stake amount fields & buttons
 		 */
-		stakeAmountInputField.setBounds(305, 445, 89, 23);
-		getContentPane().add(stakeAmountInputField);
+		txtStakeAmountInputField.setBounds(305, 445, 89, 23);
+		getContentPane().add(txtStakeAmountInputField);
 
 		JLabel lblTextStakeAmount = new JLabel("Stake Amount:");
 		lblTextStakeAmount.setBounds(305, 415, 107, 19);
 		getContentPane().add(lblTextStakeAmount);
-		lblTextCurrentAmount.setBounds(405, 415, 107, 19);
-
-		getContentPane().add(lblTextCurrentAmount);
-		lblStakeAmountCurrent.setBounds(405, 449, 107, 19);
-
-		getContentPane().add(lblStakeAmountCurrent);
+		
+		lblStakeAmountText.setBounds(405, 415, 107, 19);
+		getContentPane().add(lblStakeAmountText);
+		lblStakeAmountValue.setBounds(405, 449, 107, 19);
+		getContentPane().add(lblStakeAmountValue);
 
 		btnStartStake.addActionListener(st -> startStake(st));
-
 		btnStartStake.setToolTipText("");
 		btnStartStake.setBounds(305, 479, 89, 23);
 		getContentPane().add(btnStartStake);
@@ -293,10 +270,10 @@ public class Staker extends JFrame {
 		label_Pet.setBounds(213, 617, 345, 33);
 		getContentPane().add(label_Pet);
 		
-		playerSharkAmount.setBounds(142, 441, 18, 31);
-		getContentPane().add(playerSharkAmount);
-		OpponentSharkAmount.setBounds(256, 449, 18, 14);
-		getContentPane().add(OpponentSharkAmount);
+		lblPlayerSharkAmount.setBounds(142, 441, 18, 31);
+		getContentPane().add(lblPlayerSharkAmount);
+		lblOpponentSharkAmount.setBounds(256, 449, 18, 14);
+		getContentPane().add(lblOpponentSharkAmount);
 		lblLogoHeader.setBounds(171, 2, 438, 142);
 		getContentPane().add(lblLogoHeader);
 		
@@ -311,22 +288,12 @@ public class Staker extends JFrame {
 		lblPet.setBounds(24, 561, 120, 89);
 		getContentPane().add(lblPet);
 
-		
-
-		JLabel lblPlayerName = new JLabel("Al-zuq yadik");
-		lblPlayerName.setBounds(167, 213, 140, 26);
-		getContentPane().add(lblPlayerName);
-		
-		lblOpponentName.setBounds(372, 213, 140, 26);
-		getContentPane().add(lblOpponentName);
-		
 		lblBuildVersion.setBounds(593, 636, 81, 14);
 		getContentPane().add(lblBuildVersion);
 
-		lblUserSpecTextAmount.setBounds(201, 537, 79, 23);
-		getContentPane().add(lblUserSpecTextAmount);
+		lblPlayerSpecTextAmount.setBounds(201, 537, 79, 23);
+		getContentPane().add(lblPlayerSpecTextAmount);
 		
-		lblOpponentSpecTextAmount.setText("100");
 		lblOpponentSpecTextAmount.setBounds(457, 536, 79, 23);
 		getContentPane().add(lblOpponentSpecTextAmount);
 
@@ -348,486 +315,38 @@ public class Staker extends JFrame {
 		initComponents();
 		layoutComponents();
 
-		if (player.isDead()) {
-			lblUserHp.setText("You Lost");
-		} else {
-			lblUserHp.setText("You Won");
-		}
-
 	}
 
 	private void startStake(ActionEvent st) {
-
-		reset();
-		STAKING = true;
-		STAKED = Integer.parseInt(stakeAmountInputField.getText());
-		if (STAKED <= 0) {
-			STAKED = Integer.parseInt(stakeAmountInputField.getText());
-			System.out.println("DIkke 0");
-		}
-
-		if (STAKED < 0) {
-			stakeAmountInputField.setText("Invalid");
-			STAKED = 0;
-			STAKING = false;
-		} else if (STAKED == 0) {
-			STAKING = false;
-			STAKED = 0;
-		} else if (STAKED > MONEY) {
-			stakeAmountInputField.setText("Invalid");
-			STAKED = 0;
-			STAKING = false;
+		player.setStake(Integer.parseInt(txtStakeAmountInputField.getText()));
+		
+		if (player.getStake() <= 0) {
+			lblStakeAmountValue.setText("Invalid");
+			player.setStake(0);
+		} else if (player.getStake() > player.getMoney()) {
+			lblStakeAmountValue.setText("Invalid");
+			player.setStake(0);
 		} else {
-			tussengeld = MONEY;
-			MONEY = MONEY - STAKED;
-			STAKING = true;
-			lblStakeAmountCurrent.setText(Integer.toString(MONEY));
-			STAKING = true;
+			player.setMoney(player.getMoney() - player.getStake());
+			lblStakeAmountValue.setText(Integer.toString(player.getStake()));
 		}
-		stakeAmountInputField.setText("");
 	}
 
 	public void masterRes(ActionEvent mr) {
 		reset();
-		MONEY = 10;
-		lblStakeAmountCurrent.setText(Integer.toString(MONEY));
-
-		tussengeld = 0;
-		STAKED = 0;
-		lblStakeWinLoss.setText("");
-
+		player.setStake(10);
+		lblStakeAmountValue.setText(Integer.toString(player.getStake()));
 	}
 
 	public void launchBandos(ActionEvent ba) {
 		this.dispose();
-		Bandos ban = new Bandos();
+		new Bandos();
 
 	}
 
 	private void reset() {
-		lblOpponentHp.setText("99");
-		lblUserHp.setText("99");
-		lblOpponentReceivedDmg.setText("");
-		lblUserReceivedDmg.setText("");
-		lblUserHealing.setText("");
-		HP_ai = 99;
-		HP_user = 99;
-		spek_user = 100;
-		spek_ai = 100;
-		OpponentSpecialBar.setValue(100);
-		userSpecialBar.setValue(100);
-		tussengeld = 0;
-		shark_ai = 5;
-		shark_user = 5;
-		playerSharkAmount.setText(Integer.toString(shark_user));
-		OpponentSharkAmount.setText(Integer.toString(shark_ai));
-		lblNewLabel.setText("");
-		STAKED = 0;
-		lblUserSpecTextAmount.setText(Integer.toString(spek_user));
-		lblOpponentSpecTextAmount.setText(Integer.toString(spek_ai));
-		STAKING = false;
-
-	}
-
-	private void dharok() {
-		int dharockhit = 0;
-		if (HP_ai <= 0) {
-			return;
-		}
-		checkDead();
-		if (HP_ai > 0 && HP_user > 0) {
-			if (HP_user <= 99 && HP_user > 80) {
-				dharockhit = randInt(0, 20);
-			} else if (HP_user <= 80 && HP_user > 60) {
-				dharockhit = randInt(0, 25);
-			} else if (HP_user <= 60 && HP_user > 45) {
-				dharockhit = randInt(0, 30);
-			} else if (HP_user <= 45 && HP_user > 35) {
-				dharockhit = randInt(0, 35);
-			} else if (HP_user <= 35 && HP_user > 10) {
-				dharockhit = randInt(0, 45);
-			} else if (HP_user <= 10 && HP_user > 5) {
-				dharockhit = randInt(0, 55);
-			} else if (HP_user <= 5 && HP_user > 3) {
-				dharockhit = randInt(0, 60);
-			} else if (HP_user <= 3 && HP_user > 1) {
-				dharockhit = randInt(0, 65);
-			} else if (HP_user <= 1) {
-				dharockhit = randInt(0, 85);
-			}
-			HP_ai = HP_ai - dharockhit;
-			lblOpponentReceivedDmg.setForeground(Color.red);
-			lblOpponentReceivedDmg.setText("You hit: " + "-" + Integer.toString(dharockhit));
-			lblOpponentHp.setText(Integer.toString(HP_ai));
-		}
-		if (HP_ai <= 0) {
-			lblOpponentHp.setText("0");
-			checkDead();
-			return;
-		}
-		if (HP_user > 0) {
-			if (spek_user < 100) {
-				spek_user = spek_user + 5;
-				userSpecialBar.setValue(spek_user);
-				lblUserSpecTextAmount.setText(Integer.toString(spek_user));
-			}
-			AIAttack();
-		}
-		checkDead();
-	}
-
-	public void actionDDS(ActionEvent ev) {
-		lblUserHealing.setText("");
-		if (HP_ai <= 0) {
-			return;
-		}
-		checkDead();
-		if (!checkDead() && spek_user >= 25) {
-			int Special = randInt(0, 30);
-			int Speciall = randInt(0, 30);
-			int total = Special + Speciall;
-
-			HP_ai = HP_ai - total;
-			lblOpponentReceivedDmg.setForeground(Color.red);
-			lblOpponentReceivedDmg.setText("You hit: " + "-" + Integer.toString(Special) + " -" + Integer.toString(Speciall));
-			if (HP_ai <= 0) {
-				lblOpponentHp.setText("0");
-			}
-			lblOpponentHp.setText(Integer.toString(HP_ai));
-
-		} else {
-			return;
-		}
-		spek_user = spek_user - 25;
-		userSpecialBar.setValue(spek_user);
-		if (spek_user < 100) {
-			spek_user = spek_user + 5;
-			userSpecialBar.setValue(spek_user);
-		}
-		lblUserSpecTextAmount.setText(Integer.toString(spek_user));
-		AIAttack();
-		checkDead();
-	}
-
-	public void actionAgs(ActionEvent ags) {
-		lblUserHealing.setText("");
-		checkDead();
-		if (HP_ai <= 0) {
-			return;
-		}
-		if (HP_ai > 0 && HP_user > 0) {
-			int agss;
-			if (!checkDead() && spek_user >= 50 && HP_ai > 0) {
-				agss = randInt(0, 68);
-
-				HP_ai = HP_ai - agss;
-				if (HP_ai == 0) {
-					lblOpponentHp.setText("0");
-				}
-				lblOpponentHp.setText(Integer.toString(HP_ai));
-				if (agss < 1) {
-					lblUserReceivedDmg.setText("Missed!");
-				} else {
-					lblOpponentReceivedDmg.setForeground(Color.red);
-					lblOpponentReceivedDmg.setText("You hit: " + "-" + Integer.toString(agss));
-				}
-				AIAttack();
-			} else if (HP_ai > 0 && spek_user < 50) {
-				lblNewLabel.setText("Not enough special!");
-				return;
-			}
-			spek_user = spek_user - 50;
-			userSpecialBar.setValue(spek_user);
-			if (spek_user < 100) {
-				spek_user = spek_user + 5;
-				userSpecialBar.setValue(spek_user);
-				lblUserSpecTextAmount.setText(Integer.toString(spek_user));
-			}
-
-			checkDead();
-
-		}
-	}
-
-	public void actionWhip(ActionEvent iv) {
-		lblUserSpecTextAmount.setText(Integer.toString(spek_user));
-		lblUserHealing.setText("");
-		checkDead();
-		if (HP_ai <= 0) {
-			return;
-		}
-		if (!checkDead()) {
-			int whip = randInt(0, 35);
-
-			if (spek_user < 100) {
-				spek_user = spek_user + 5;
-				userSpecialBar.setValue(spek_user);
-				lblUserSpecTextAmount.setText(Integer.toString(spek_user));
-			}
-			HP_ai = HP_ai - whip;
-			if (HP_ai == 0) {
-				lblOpponentHp.setText("0");
-			}
-			lblOpponentHp.setText(Integer.toString(HP_ai));
-			if (whip < 1) {
-				lblUserReceivedDmg.setText("Missed!");
-			} else {
-				lblOpponentReceivedDmg.setForeground(Color.red);
-				lblOpponentReceivedDmg.setText("You hit: " + "-" + Integer.toString(whip));
-			}
-			AIAttack();
-		} else {
-			return;
-		}
-		checkDead();
-	}
-
-	public void AIAttack() {
-		checkDead();
-		if (HP_ai >= 15) {
-			int A = randInt(0, 10);
-			if (A <= 8 && spek_ai >= 50) {
-				AIAgs();
-			} else if (spek_ai >= 25) {
-				AIDds();
-			} else {
-				int a = randInt(0, 10);
-				if (HP_ai < 20) {
-					AIShark();
-				} else if (a >= 5) {
-					aidharok();
-				} else {
-					AIWhip();
-				}
-			}
-		} else {
-			aidharok();
-		}
-		if (spek_ai < 100) {
-			spek_ai = spek_ai + 5;
-			OpponentSpecialBar.setValue(spek_ai);
-			lblOpponentSpecTextAmount.setText(Integer.toString(spek_ai));
-		}
-		checkDead();
-	}
-
-	private void aidharok() {
-		int dharockhit = 0;
-		int hpnu = HP_user;
-		if (HP_user <= 0 || HP_ai <= 0) {
-			return;
-		}
-
-		if (HP_ai > 0 && HP_user > 0) {
-			if (HP_ai <= 99 && HP_ai > 80) {
-				dharockhit = randInt(0, 20);
-			} else if (HP_ai <= 80 && HP_ai > 60) {
-				dharockhit = randInt(0, 25);
-			} else if (HP_ai <= 60 && HP_ai > 45) {
-				dharockhit = randInt(0, 30);
-			} else if (HP_ai <= 45 && HP_ai > 35) {
-				dharockhit = randInt(0, 35);
-			} else if (HP_ai <= 35 && HP_ai > 10) {
-				dharockhit = randInt(0, 40);
-			} else if (HP_ai <= 10 && HP_ai > 5) {
-				dharockhit = randInt(0, 45);
-			} else if (HP_ai <= 5 && HP_ai > 3) {
-				dharockhit = randInt(0, 55);
-			} else if (HP_ai <= 3 && HP_ai > 1) {
-				dharockhit = randInt(0, 60);
-			} else if (HP_ai <= 1) {
-				dharockhit = randInt(0, 65);
-			}
-
-			lblUserReceivedDmg.setForeground(Color.red);
-			HP_user = HP_user - dharockhit;
-			if (HP_user <= 0) {
-				lblUserReceivedDmg.setText("Dharok: " + "-" + hpnu);
-				lblUserHp.setText(Integer.toString(HP_user));
-				checkDead();
-				return;
-			} else {
-				lblUserHp.setText(Integer.toString(HP_user));
-				lblUserReceivedDmg.setText("Dharok: " + "-" + Integer.toString(dharockhit));
-			}
-		}
-		checkDead();
-
-	}
-
-	private void AIShark() {
-		checkDead();
-		shark_ai = shark_ai - 1;
-		OpponentSharkAmount.setText(Integer.toString(shark_ai));
-		HP_ai = HP_ai + 40;
-		if (HP_ai >= 99) {
-			HP_ai = 99;
-		}
-		lblOpponentReceivedDmg.setForeground(Color.green);
-		lblOpponentReceivedDmg.setText("+40");
-		lblOpponentHp.setText(Integer.toString(HP_ai));
-		lblUserReceivedDmg.setText("");
-		checkDead();
-
-	}
-
-	private void AIAgs() {
-		checkDead();
-		int hpnu = HP_user;
-		int specialAgs;
-		if (!checkDead() && spek_ai >= 50) {
-			if (HP_user < 40) {
-				specialAgs = randInt(0, 50);
-			} else {
-				specialAgs = randInt(0, 68);
-			}
-			lblUserReceivedDmg.setForeground(Color.red);
-			HP_user = HP_user - specialAgs;
-			if (HP_user <= 0) {
-				lblUserReceivedDmg.setText("AGS:- " + hpnu);
-				lblUserHp.setText(Integer.toString(HP_user));
-				checkDead();
-				return;
-			} else {
-				lblUserHp.setText(Integer.toString(HP_user));
-				lblUserReceivedDmg.setText("AGS:- " + Integer.toString(specialAgs));
-			}
-		}
-
-		spek_ai = spek_ai - 50;
-		OpponentSpecialBar.setValue(spek_ai);
-		checkDead();
-	}
-
-	private void AIDds() {
-		checkDead();
-		int hpnu = HP_user;
-		if (spek_ai >= 25) {
-			int Special = randInt(0, 30);
-			int Speciall = randInt(0, 30);
-			int total = Special + Speciall;
-
-			HP_user = HP_user - total;
-			lblUserReceivedDmg.setForeground(Color.red);
-			if (HP_user <= 0) {
-				lblUserReceivedDmg.setText("DDS:-" + hpnu + " - 0");
-				lblUserHp.setText(Integer.toString(HP_user));
-				checkDead();
-				return;
-			} else {
-				lblUserReceivedDmg.setText("DDS:- " + Integer.toString(Special) + " - " + Integer.toString(Speciall));
-				lblUserHp.setText(Integer.toString(HP_user));
-			}
-
-		}
-		spek_ai = spek_ai - 25;
-		OpponentSpecialBar.setValue(spek_ai);
-		checkDead();
-	}
-
-	public void AIWhip() {
-		checkDead();
-		int hpnu = HP_user;
-		if (HP_user > 0) {
-			int whip = randInt(0, 26);
-
-			lblUserReceivedDmg.setForeground(Color.red);
-			if (whip < 1) {
-				lblUserReceivedDmg.setText("Whip: " + whip);
-			} else {
-				lblUserReceivedDmg.setText("Whip:- " + Integer.toString(whip));
-				HP_user = HP_user - whip;
-				if (HP_user <= 0) {
-					lblUserReceivedDmg.setText("Whip:- " + hpnu);
-					lblUserHp.setText(Integer.toString(HP_user));
-					checkDead();
-					return;
-				} else {
-					lblUserHp.setText(Integer.toString(HP_user));
-					lblUserReceivedDmg.setText("Whip:- " + Integer.toString(whip));
-				}
-			}
-
-		} else {
-			return;
-		}
-	}
-
-	public void actionShark(ActionEvent ov) {
-
-		checkDead();
-		if (shark_user > 0) {
-			shark_user = shark_user - 1;
-			if (HP_user > 0 && HP_user < 99) {
-				if (spek_user < 100) {
-					spek_user = spek_user + 5;
-					userSpecialBar.setValue(spek_user);
-					lblUserSpecTextAmount.setText(Integer.toString(spek_user));
-				}
-				if (!checkDead()) {
-					HP_user = HP_user + 40;
-				} else {
-					return;
-				}
-				if (HP_user >= 99) {
-					HP_user = 99;
-				}
-				lblUserHealing.setForeground(Color.green);
-				lblUserHealing.setText("+40");
-				lblUserHp.setText(Integer.toString(HP_user));
-				AIAttack();
-				playerSharkAmount.setText(Integer.toString(shark_user));
-			} else {
-				lblUserReceivedDmg.setText("You're full");
-			}
-
-			if (HP_user <= 0) {
-				HP_user = 0;
-				lblUserHealing.setText("");
-				lblUserHp.setText("You Lost");
-			}
-
-		}
-	}
-
-	public static int randInt(int min, int max) {
-
-		Random rand = new Random();
-		int randomNum = rand.nextInt((max - min) + 1) + min;
-
-		return randomNum;
-	}
-
-	public boolean checkDead() {
-		if (HP_ai == 0 && HP_user == 0) {
-			lblUserHp.setText("Tie");
-			lblOpponentHp.setText("Tie");
-			STAKING = false;
-
-		}
-		if (HP_ai <= 0 || HP_user <= 0) {
-			if (HP_ai <= 0) {
-				lblOpponentHp.setText("0");
-				lblUserHp.setText("You Won");
-				tussengeld = MONEY;
-				System.out.println(tussengeld);
-				MONEY = (STAKED * 2) + tussengeld;
-				lblStakeAmountCurrent.setText(Integer.toString(MONEY));
-
-				int won = STAKED;
-				lblStakeWinLoss.setText("Won: " + Integer.toString(won) + " mill");
-				checkPet();
-				STAKING = false;
-				STAKED = 0;
-			} else if (HP_user <= 0) {
-				lblUserHp.setText("You Lost");
-				int won = STAKED;
-				lblStakeWinLoss.setText("Lost: " + Integer.toString(won) + " mill");
-				STAKING = false;
-			}
-			return true;
-		}
-		return false;
+		this.dispose();
+		new Staker();
 	}
 
 	private void layoutComponents() {
@@ -835,12 +354,12 @@ public class Staker extends JFrame {
 	}
 
 	private void checkPet() {
-		int petLuck = randInt(0, 2000);
+		int petLuck = Util.randInt(0, 2000);
 		System.out.println(stakePet + "  " + petLuck);
 		System.out.println(STAKING);
-		if (petLuck == stakePet && STAKED > 0) {
+		if (petLuck == stakePet && player.getStake() > 0) {
 			label_Pet.setText("You received a staking pet!");
-			int welke = randInt(0, 5);
+			int welke = Util.randInt(0, 5);
 			if (welke == 0) {
 				lblPet.setIcon(pet_Lander);
 			} else if (welke == 1) {
