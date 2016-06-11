@@ -103,7 +103,7 @@ public class Staker extends JFrame {
 		super("Staker");
 		
 		User player = new User(99, new Shark(5, 20, 5), 100, 10);
-		User ui = new User(99, new Shark(5, 20, 5), 100, 10);
+		User ai = new User(99, new Shark(5, 20, 5), 100, 10);
 		
 		setSize(700, 700);
 		setLocationRelativeTo(null);
@@ -130,64 +130,6 @@ public class Staker extends JFrame {
 		lblOpponentYourHp.setBounds(362, 236, 176, 41);
 		getContentPane().add(lblOpponentYourHp);
 
-		
-		/*
-		 * Buttons
-		 */
-		JButton btnWhip = new JButton("Whip");
-		btnWhip.addActionListener(whip -> player.doAttack(Weapon.WHIP, ui));
-		btnWhip.addActionListener(whip -> lblOpponentReceivedDmg.setText(Integer.toString(player.getWhip().getHit())));
-		btnWhip.setToolTipText("Hit quite accurate");
-		btnWhip.setBounds(34, 346, 89, 23);
-		getContentPane().add(btnWhip);
-		
-		ImageIcon whipimg = new ImageIcon(getClass().getResource("whip.png"));
-		JLabel lblWeaponWhipImg = new JLabel(whipimg);
-
-		
-		JButton btnDh = new JButton("Dharok");
-		btnDh.addActionListener(dharok -> player.doAttack(Weapon.DHAROK, ui));
-		btnDh.addActionListener(dh -> dharok());
-		btnDh.setToolTipText("Hit higher when less hp");
-		btnDh.setBounds(34, 548, 89, 23);
-		getContentPane().add(btnDh);
-		
-		ImageIcon dhimg = new ImageIcon(getClass().getResource("dh.png"));
-		JLabel lblWeaponDhImg = new JLabel(dhimg);
-		
-		
-		JButton btnDds = new JButton("DDS (25)");
-		btnDds.addActionListener(dds -> player.doAttack(Weapon.DDS, ui));
-		btnDds.setToolTipText("Uses 25% Special-bar");
-		btnDds.setBounds(34, 413, 89, 23);
-		getContentPane().add(btnDds);
-		
-		ImageIcon ddsimg = new ImageIcon(getClass().getResource("dds.png"));
-		JLabel lblWeaponDdsImg = new JLabel(ddsimg);
-
-		
-		JButton btnAgs = new JButton("AGS (50)");
-		btnAgs.addActionListener(ags -> player.doAttack(Weapon.AGS, ui));
-		btnAgs.setToolTipText("Hit hard!");
-		btnAgs.setBounds(34, 479, 89, 23);
-		getContentPane().add(btnAgs);
-		
-
-		ImageIcon agsimg = new ImageIcon(getClass().getResource("ags.png"));
-		JLabel lblWeaponAgsImg = new JLabel(agsimg);
-		
-		
-		JButton btnEatShark = new JButton("Eat Shark");
-		btnEatShark.addActionListener(ov -> player.eatShark());
-		btnEatShark.setToolTipText("Heals 20 hp");
-		btnEatShark.setBounds(157, 445, 89, 23);
-		getContentPane().add(btnEatShark);
-		
-		ImageIcon sharkimg = new ImageIcon(getClass().getResource("shark.png"));
-		JLabel lblSharkImg = new JLabel(sharkimg);
-
-		
-		
 		lblUserReceivedDmg.setForeground(Color.BLACK);
 		lblUserReceivedDmg.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		lblUserReceivedDmg.setBounds(166, 328, 132, 41);
@@ -198,11 +140,6 @@ public class Staker extends JFrame {
 		lblOpponentReceivedDmg.setBounds(362, 335, 150, 31);
 		getContentPane().add(lblOpponentReceivedDmg);
 
-		//lblUserHealing.setBounds(234, 309, 89, 39);
-		//getContentPane().add(lblUserHealing);
-
-		
-
 		userSpecialBar.setForeground(new Color(50, 205, 50));
 		userSpecialBar.setValue(100);
 		userSpecialBar.setBounds(148, 557, 146, 14);
@@ -212,6 +149,84 @@ public class Staker extends JFrame {
 		OpponentSpecialBar.setValue(100);
 		OpponentSpecialBar.setBounds(397, 557, 146, 14);
 		getContentPane().add(OpponentSpecialBar);
+		
+		
+		
+		/*
+		 * Buttons
+		 */
+		JButton btnWhip = new JButton("Whip");
+		btnWhip.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        player.doAttack(Weapon.WHIP, ai);
+		    }
+		});
+		btnWhip.setToolTipText("Hit quite accurate");
+		btnWhip.setBounds(34, 346, 89, 23);
+		getContentPane().add(btnWhip);
+		
+		ImageIcon whipimg = new ImageIcon(getClass().getResource("whip.png"));
+		JLabel lblWeaponWhipImg = new JLabel(whipimg);
+
+		
+		JButton btnDh = new JButton("Dharok");
+		btnDh.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        player.doAttack(Weapon.DHAROK, ai);
+		    }
+		});
+		btnDh.setToolTipText("Hit higher when less hp");
+		btnDh.setBounds(34, 548, 89, 23);
+		getContentPane().add(btnDh);
+		
+		ImageIcon dhimg = new ImageIcon(getClass().getResource("dh.png"));
+		JLabel lblWeaponDhImg = new JLabel(dhimg);
+		
+		
+		JButton btnDds = new JButton("DDS (25)");
+		btnDds.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        player.doAttack(Weapon.DDS, ai);
+		    }
+		});
+		btnDds.setToolTipText("Uses 25% Special-bar");
+		btnDds.setBounds(34, 413, 89, 23);
+		getContentPane().add(btnDds);
+		
+		ImageIcon ddsimg = new ImageIcon(getClass().getResource("dds.png"));
+		JLabel lblWeaponDdsImg = new JLabel(ddsimg);
+
+		
+		JButton btnAgs = new JButton("AGS (50)");
+		btnAgs.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        player.doAttack(Weapon.AGS, ai);
+		    }
+		});
+		btnAgs.setToolTipText("Hit hard!");
+		btnAgs.setBounds(34, 479, 89, 23);
+		getContentPane().add(btnAgs);
+		
+
+		ImageIcon agsimg = new ImageIcon(getClass().getResource("ags.png"));
+		JLabel lblWeaponAgsImg = new JLabel(agsimg);
+		
+		
+		JButton btnEatShark = new JButton("Eat Shark");
+		btnEatShark.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        player.eatShark();
+		    }
+		});
+		btnEatShark.setToolTipText("Heals 20 hp");
+		btnEatShark.setBounds(157, 445, 89, 23);
+		getContentPane().add(btnEatShark);
+		
+		ImageIcon sharkimg = new ImageIcon(getClass().getResource("shark.png"));
+		JLabel lblSharkImg = new JLabel(sharkimg);
+
+		
+
 		
 		lblNewLabel.setBounds(142, 573, 146, 23);
 		getContentPane().add(lblNewLabel);
