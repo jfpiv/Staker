@@ -112,14 +112,6 @@ public class Staker extends JFrame {
 		header_RS_Logo = new ImageIcon(getClass().getResource("RS_logo_old.png"));
 		lblLogoHeader = new JLabel(header_RS_Logo);
 
-		lblUserHp.setFont(new Font("Tahoma", Font.PLAIN, 28));
-		lblUserHp.setBounds(167, 293, 140, 55);
-		getContentPane().add(lblUserHp);
-
-		lblOpponentHp.setFont(new Font("Tahoma", Font.PLAIN, 28));
-		lblOpponentHp.setBounds(372, 293, 140, 55);
-		getContentPane().add(lblOpponentHp);
-
 		JLabel lblPlayerYourHp = new JLabel("Your HP");
 		lblPlayerYourHp.setFont(new Font("Tahoma", Font.PLAIN, 34));
 		lblPlayerYourHp.setBounds(157, 241, 132, 31);
@@ -129,6 +121,14 @@ public class Staker extends JFrame {
 		lblOpponentYourHp.setFont(new Font("Tahoma", Font.PLAIN, 34));
 		lblOpponentYourHp.setBounds(362, 236, 176, 41);
 		getContentPane().add(lblOpponentYourHp);
+		
+		lblUserHp.setFont(new Font("Tahoma", Font.PLAIN, 28));
+		lblUserHp.setBounds(167, 293, 140, 55);
+		getContentPane().add(lblUserHp);
+
+		lblOpponentHp.setFont(new Font("Tahoma", Font.PLAIN, 28));
+		lblOpponentHp.setBounds(372, 293, 140, 55);
+		getContentPane().add(lblOpponentHp);
 
 		lblUserReceivedDmg.setForeground(Color.BLACK);
 		lblUserReceivedDmg.setFont(new Font("Tahoma", Font.PLAIN, 15));
@@ -159,6 +159,12 @@ public class Staker extends JFrame {
 		btnWhip.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        player.doAttack(Weapon.WHIP, ai);
+		        lblOpponentReceivedDmg.setText(Integer.toString(player.getWhip().getHit()));
+		        lblOpponentHp.setText(Integer.toString(ai.getHp()));
+		        lblUserReceivedDmg.setText(Integer.toString(ai.getWhip().getHit()));
+		        lblUserHp.setText(Integer.toString(player.getHp()));
+		        userSpecialBar.setValue(player.getSpec());
+		        OpponentSpecialBar.setValue(ai.getSpec());
 		    }
 		});
 		btnWhip.setToolTipText("Hit quite accurate");
@@ -173,6 +179,10 @@ public class Staker extends JFrame {
 		btnDh.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        player.doAttack(Weapon.DHAROK, ai);
+		        lblOpponentReceivedDmg.setText(Integer.toString(player.getDharok().getHit()));
+		        lblOpponentHp.setText(Integer.toString(ai.getHp()));
+		        lblUserReceivedDmg.setText(Integer.toString(ai.getDharok().getHit()));
+		        lblUserHp.setText(Integer.toString(player.getHp()));
 		    }
 		});
 		btnDh.setToolTipText("Hit higher when less hp");
@@ -187,6 +197,10 @@ public class Staker extends JFrame {
 		btnDds.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        player.doAttack(Weapon.DDS, ai);
+		        lblOpponentReceivedDmg.setText(Integer.toString(player.getDds().getHit()));
+		        lblOpponentHp.setText(Integer.toString(ai.getHp()));
+		        lblUserReceivedDmg.setText(Integer.toString(ai.getDds().getHit()));
+		        lblUserHp.setText(Integer.toString(player.getHp()));
 		    }
 		});
 		btnDds.setToolTipText("Uses 25% Special-bar");
@@ -201,6 +215,10 @@ public class Staker extends JFrame {
 		btnAgs.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        player.doAttack(Weapon.AGS, ai);
+		        lblOpponentReceivedDmg.setText(Integer.toString(player.getAgs().getHit()));
+		        lblOpponentHp.setText(Integer.toString(ai.getHp()));
+		        lblUserReceivedDmg.setText(Integer.toString(ai.getAgs().getHit()));
+		        lblUserHp.setText(Integer.toString(player.getHp()));
 		    }
 		});
 		btnAgs.setToolTipText("Hit hard!");
@@ -216,6 +234,12 @@ public class Staker extends JFrame {
 		btnEatShark.addActionListener(new ActionListener() {
 		    public void actionPerformed(ActionEvent e) {
 		        player.eatShark();
+		        lblUserReceivedDmg.setText(Integer.toString(player.getShark().getHealing()));
+		        lblUserHp.setText(Integer.toString(player.getHp()));
+		        
+		        
+		        playerSharkAmount.setText(Integer.toString(player.getShark().getAmount()));
+		        OpponentSharkAmount.setText(Integer.toString(ai.getShark().getAmount()));
 		    }
 		});
 		btnEatShark.setToolTipText("Heals 20 hp");
@@ -231,6 +255,10 @@ public class Staker extends JFrame {
 		lblNewLabel.setBounds(142, 573, 146, 23);
 		getContentPane().add(lblNewLabel);
 		
+		
+		/*
+		 * Stake amount fields & buttons
+		 */
 		stakeAmountInputField.setBounds(305, 445, 89, 23);
 		getContentPane().add(stakeAmountInputField);
 
@@ -250,6 +278,9 @@ public class Staker extends JFrame {
 		btnStartStake.setBounds(305, 479, 89, 23);
 		getContentPane().add(btnStartStake);
 
+		/*
+		 * Master restart buttons
+		 */
 		JButton btnMasterRestart = new JButton("Master Restart");
 		btnMasterRestart.addActionListener(mr -> masterRes(mr));
 		btnMasterRestart.setBounds(283, 583, 150, 23);
@@ -261,26 +292,23 @@ public class Staker extends JFrame {
 		label_Pet.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		label_Pet.setBounds(213, 617, 345, 33);
 		getContentPane().add(label_Pet);
+		
 		playerSharkAmount.setBounds(142, 441, 18, 31);
-
 		getContentPane().add(playerSharkAmount);
 		OpponentSharkAmount.setBounds(256, 449, 18, 14);
-
 		getContentPane().add(OpponentSharkAmount);
 		lblLogoHeader.setBounds(171, 2, 438, 142);
-
 		getContentPane().add(lblLogoHeader);
+		
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				reset();
 			}
-
 		});
 		btnReset.setBounds(305, 517, 89, 23);
-
 		getContentPane().add(btnReset);
+		
 		lblPet.setBounds(24, 561, 120, 89);
-
 		getContentPane().add(lblPet);
 
 		
@@ -288,18 +316,18 @@ public class Staker extends JFrame {
 		JLabel lblPlayerName = new JLabel("Al-zuq yadik");
 		lblPlayerName.setBounds(167, 213, 140, 26);
 		getContentPane().add(lblPlayerName);
+		
 		lblOpponentName.setBounds(372, 213, 140, 26);
-
 		getContentPane().add(lblOpponentName);
+		
 		lblBuildVersion.setBounds(593, 636, 81, 14);
-
 		getContentPane().add(lblBuildVersion);
 
 		lblUserSpecTextAmount.setBounds(201, 537, 79, 23);
 		getContentPane().add(lblUserSpecTextAmount);
+		
 		lblOpponentSpecTextAmount.setText("100");
 		lblOpponentSpecTextAmount.setBounds(457, 536, 79, 23);
-
 		getContentPane().add(lblOpponentSpecTextAmount);
 
 		lblWeaponWhipImg.setBounds(56, 306, 40, 39);

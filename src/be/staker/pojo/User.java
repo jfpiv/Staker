@@ -5,6 +5,8 @@ import be.staker.util.Util;
 public class User {
 	public static final int MAX_HEALTH = 99;
 	public static final int MIN_HEALTH = 0;
+	public static final int MAX_SPEC = 99;
+	public static final int MIN_SPEC = 0;
 	
 	private int hp;
 	private int spec;
@@ -31,12 +33,22 @@ public class User {
 	
 
 	public int getHp() {
+		if (hp > MAX_HEALTH) {
+			hp = MAX_HEALTH;
+		} else if(hp < MIN_HEALTH){
+			hp = MIN_HEALTH;
+		}
 		return hp;
 	}
 	public void setHp(int hp) {
 		this.hp = hp;
 	}
 	public int getSpec() {
+		if (spec > MAX_SPEC) {
+			spec = MAX_SPEC;
+		} else if(spec < MIN_SPEC){
+			spec = MIN_SPEC;
+		}
 		return spec;
 	}
 	public void setSpec(int spec) {
@@ -99,7 +111,7 @@ public class User {
 	public boolean eatShark(){
 		boolean success;
 		
-		if (this.shark.getAmount() > 0 && !this.isDead) {
+		if (this.shark.getAmount() > 0 && !this.isDead && this.getHp() < MAX_HEALTH) {
 			this.shark.decreaseAmount(1);
 			this.hp = this.hp + this.shark.getHealing();
 			success = true;
@@ -164,6 +176,8 @@ public class User {
 		this.addSpec(this.whip);
 		this.decreaseSpec(this.whip);
 			
+		target.doAttack(this);
+		
 //		notenougspek.setText("");
 //		if (HP_boss <= 0) {
 //			return;
