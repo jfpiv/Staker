@@ -47,7 +47,7 @@ public class Staker extends JFrame {
 	JTextPane txtStakeAmountInputField = new JTextPane();
 	JLabel lblStakeWinLoss = new JLabel();
 
-	JLabel lblBuildVersion = new JLabel("Build: 0.2");
+	JLabel lblBuildVersion = new JLabel("Build: 0.9");
 
 	// pet
 	JLabel lblPet = new JLabel();
