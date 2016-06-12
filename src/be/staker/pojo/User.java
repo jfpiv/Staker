@@ -88,7 +88,9 @@ public class User {
 		return ags;
 	}
 
-	
+	public void setSpecFive(){
+		this.spec += 5;
+	}
 	
 	public void addSpec(Weapon weapon) {
 		this.spec = this.spec + weapon.getAddSpec();
@@ -99,6 +101,7 @@ public class User {
 	public String decreaseHp(int damage){
 		if(!this.isDead()){
 			this.hp = this.hp - damage;
+			
 			return "Damage";
 		} else {
 			this.setHp(0);
@@ -183,7 +186,7 @@ public class User {
 		this.addSpec(this.whip);
 		this.decreaseSpec(this.whip);
 			
-		target.doAttack(this);
+		//
 	
 	}
 	
@@ -214,7 +217,7 @@ public class User {
 		this.addSpec(this.dharok);
 		this.decreaseSpec(this.dharok);
 			
-		target.doAttack(this);
+		
 		
 	}
 	
@@ -226,7 +229,7 @@ public class User {
 		this.addSpec(this.dds);
 		this.decreaseSpec(this.dds);
 			
-		target.doAttack(this);
+		
 		
 	}
 	
@@ -237,6 +240,6 @@ public class User {
 		this.addSpec(this.ags);
 		this.decreaseSpec(this.ags);
 			
-		target.doAttack(this);
+		//target.doAttack(this);
 	}
 }

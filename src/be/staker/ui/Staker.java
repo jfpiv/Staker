@@ -102,10 +102,12 @@ public class Staker extends JFrame {
 		getContentPane().add(lblOpponentHpText);
 		
 		lblPlayerHpValue.setFont(new Font("Tahoma", Font.PLAIN, 28));
+		lblPlayerHpValue.setText(player.getHp() + "");
 		lblPlayerHpValue.setBounds(167, 293, 140, 55);
 		getContentPane().add(lblPlayerHpValue);
 
 		lblOpponentHpValue.setFont(new Font("Tahoma", Font.PLAIN, 28));
+		lblOpponentHpValue.setText(ai.getHp() + "");
 		lblOpponentHpValue.setBounds(372, 293, 140, 55);
 		getContentPane().add(lblOpponentHpValue);
 
@@ -140,7 +142,8 @@ public class Staker extends JFrame {
 		        player.doAttack(Weapon.WHIP, ai);
 		        lblOpponentReceivedDmg.setText(Integer.toString(player.getWhip().getHit()));
 		        lblOpponentHpValue.setText(Integer.toString(ai.getHp()));
-		        lblPlayerReceivedDmg.setText(Integer.toString(ai.getWhip().getHit()));
+		        AIAttack();
+		        lblPlayerReceivedDmg.setText("-" +Integer.toString(ai.getWhip().getHit()));
 		        lblPlayerHpValue.setText(Integer.toString(player.getHp()));
 		        pgrPlayerSpecialBar.setValue(player.getSpec());
 		        pgrOpponentSpecialBar.setValue(ai.getSpec());
@@ -352,6 +355,32 @@ public class Staker extends JFrame {
 	private void layoutComponents() {
 
 	}
+	
+	public void AIAttack() {
+        if (ai.getHp() >= 15) { //dharok check
+            int A = Util.randInt(0, 10);
+            if (A <= 8 && ai.getSpec() >= 50) {
+                ai.doAttack(Weapon.AGS, player);
+            } else if (ai.getSpec() >= 25) {
+            	 ai.doAttack(Weapon.DDS, player);
+            } else {
+                int a = Util.randInt(0, 10);
+                if (ai.getHp() < 20) {
+                    ai.eatShark();
+                } else if (a >= 5) {
+                	 ai.doAttack(Weapon.DHAROK, player);
+                } else {
+                	 ai.doAttack(Weapon.WHIP, player);
+                }
+            }
+        } else {
+        	 ai.doAttack(Weapon.DHAROK, player);
+        }
+        if (ai.getSpec() < 100) {
+        	ai.setSpecFive();
+        }
+    }
+
 
 	private void checkPet() {
 		int petLuck = Util.randInt(0, 2000);
