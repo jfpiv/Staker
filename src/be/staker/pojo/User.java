@@ -20,6 +20,9 @@ public class User {
 	private Weapon dds;
 	private Weapon ags;
 	
+	
+	private Weapon weaponHitFrom;
+	
 	public User(int hp, Shark shark, int spec, int money){
 		this.setHp(hp);
 		this.setShark(shark);
@@ -32,6 +35,12 @@ public class User {
 		ags = new Weapon(50);
 	}
 	
+	public Weapon getWeaponHitFrom() {
+		return weaponHitFrom;
+	}
+	public void setWeaponHitFrom(Weapon weaponHitFrom) {
+		this.weaponHitFrom = weaponHitFrom;
+	}
 
 	public int getHp() {
 		if (hp > MAX_HEALTH) {
@@ -41,9 +50,12 @@ public class User {
 		}
 		return hp;
 	}
+	
+
 	public void setHp(int hp) {
 		this.hp = hp;
 	}
+	
 	public int getSpec() {
 		if (spec > MAX_SPEC) {
 			spec = MAX_SPEC;
@@ -186,7 +198,7 @@ public class User {
 		this.addSpec(this.whip);
 		this.decreaseSpec(this.whip);
 			
-		//
+		target.setWeaponHitFrom(this.whip); //dit is wapen waar je damage van gepakt hebt
 	
 	}
 	
@@ -216,20 +228,23 @@ public class User {
 		
 		this.addSpec(this.dharok);
 		this.decreaseSpec(this.dharok);
-			
+		
+		
+		target.setWeaponHitFrom(this.dharok);
 		
 		
 	}
 	
 	private void doDDS(User target){
 		
-		this.dds.setHit(Util.randInt(0, 60));
+		this.dds.setHit(Util.randInt(0, 20));
+		this.dds.setHit2(Util.randInt(0, 20));
 		target.decreaseHp(this.dds.getHit());
-		
+		target.decreaseHp(this.dds.getHit2());
 		this.addSpec(this.dds);
 		this.decreaseSpec(this.dds);
 			
-		
+		target.setWeaponHitFrom(this.dds);
 		
 	}
 	
@@ -240,6 +255,6 @@ public class User {
 		this.addSpec(this.ags);
 		this.decreaseSpec(this.ags);
 			
-		//target.doAttack(this);
+		target.setWeaponHitFrom(this.ags);
 	}
 }
