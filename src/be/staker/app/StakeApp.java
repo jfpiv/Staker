@@ -13,7 +13,7 @@ public class StakeApp {
 		//new MainMenu();
 		new Staker();
 		
-
+		//testje
 	}
 
 }
