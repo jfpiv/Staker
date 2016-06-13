@@ -31,7 +31,6 @@ public class MainMenu extends JFrame{
 		
 		JList list = new JList();
 		list.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		list.
 		list.setBounds(18, 134, 242, 305);
 		panel.add(list);
 		

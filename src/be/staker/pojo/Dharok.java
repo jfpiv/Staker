@@ -5,7 +5,7 @@ import be.staker.util.Util;
 /**
  * Created by u0098595 on 13/06/2016.
  */
-public class Dharok extends Weapon {
+public class Dharok extends Weapon{
 
     public Dharok(){}
 

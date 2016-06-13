@@ -76,8 +76,8 @@ public class Staker extends JFrame {
 	// randombooleans
 	boolean STAKING;
 
-	User player = new User(99, new Shark(5, 20, 5), 100, 10);
-	User ai = new User(99, new Shark(5, 20, 5), 100, 10);
+	User player = new User(99, 5, 100, 10);
+	User ai = new User(99, 5, 100, 10);
 
 	public Staker() {
 		super("Staker");
@@ -140,8 +140,8 @@ public class Staker extends JFrame {
 				if (player.isDead()) {
 					return;
 				} else {
-					player.doAttack(Weapon.WHIP, ai);
-					lblOpponentReceivedDmg.setText("WHIP: -" + Integer.toString(player.getWhip().getHit()));
+					player.doWhip(ai);
+					lblOpponentReceivedDmg.setText(player.getHitString());
 					lblPlayerSpecTextAmount.setText(player.getSpec() + "");
 					AIAttack();
 					if (ai.isDead()) {
@@ -165,8 +165,8 @@ public class Staker extends JFrame {
 				if (player.isDead()) {
 					return;
 				} else {
-					player.doAttack(Weapon.DHAROK, ai);
-					lblOpponentReceivedDmg.setText("DH: -" + Integer.toString(player.getDharok().getHit()));
+					player.doDharok(ai);
+					lblOpponentReceivedDmg.setText(player.getHitString());
 					lblOpponentHpValue.setText(Integer.toString(ai.getHp()));
 					lblPlayerSpecTextAmount.setText(player.getSpec() + "");
 					AIAttack();
@@ -191,9 +191,8 @@ public class Staker extends JFrame {
 				if (player.isDead()) {
 					return;
 				} else {
-					player.doAttack(Weapon.DDS, ai);
-					lblOpponentReceivedDmg.setText("DDS: -" + Integer.toString(player.getDds().getHit()) + " -"
-							+ Integer.toString(player.getDds().getHit()));
+					player.doDDS(ai);
+					lblOpponentReceivedDmg.setText(player.getHitString());
 					pgrPlayerSpecialBar.setValue(player.getSpec());
 					lblPlayerSpecTextAmount.setText(player.getSpec() + "");
 					AIAttack();
@@ -218,8 +217,8 @@ public class Staker extends JFrame {
 				if (player.isDead()) {
 					return;
 				} else {
-					player.doAttack(Weapon.AGS, ai);
-					lblOpponentReceivedDmg.setText("AGS: -" + Integer.toString(player.getAgs().getHit()));
+					player.doAGS(ai);
+					lblOpponentReceivedDmg.setText(player.getHitString());
 					pgrPlayerSpecialBar.setValue(player.getSpec());
 					lblPlayerSpecTextAmount.setText(player.getSpec() + "");
 					AIAttack();
@@ -241,7 +240,7 @@ public class Staker extends JFrame {
 		JButton btnEatShark = new JButton("Eat Shark");
 		btnEatShark.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (player.isDead() || player.getShark().getAmount() == 0){
+				if (player.isDead() || player.getSharkAmount() == 0){
 					return;
 				} else {
 					player.eatShark();
@@ -249,8 +248,8 @@ public class Staker extends JFrame {
 					lblPlayerHpValue.setText(Integer.toString(player.getHp()));
 					pgrPlayerSpecialBar.setValue(player.getSpec());
 					lblPlayerSpecTextAmount.setText(player.getSpec() + "");
-					lblPlayerSharkAmount.setText(Integer.toString(player.getShark().getAmount()));
-					lblOpponentSharkAmount.setText(Integer.toString(ai.getShark().getAmount()));
+					lblPlayerSharkAmount.setText(Integer.toString(player.getSharkAmount()));
+					lblOpponentSharkAmount.setText(Integer.toString(ai.getSharkAmount()));
 					
 					AIAttack();
 				}
@@ -393,16 +392,15 @@ public class Staker extends JFrame {
 		} else if (ai.getHp() >= 15) { // dharok check
 			int A = Util.randInt(0, 10);
 			if (A <= 8 && ai.getSpec() >= 50) {
-				ai.doAttack(Weapon.AGS, player);
-				lblPlayerReceivedDmg.setText("AGS: -" + player.getWeaponHitFrom().getHit());
+				ai.doAGS(player);
+				lblPlayerReceivedDmg.setText(ai.getHitString());
 
 				lblOpponentSpecTextAmount.setText(ai.getSpec() + "");
 				pgrPlayerSpecialBar.setValue(player.getSpec());
 				pgrOpponentSpecialBar.setValue(ai.getSpec());
 			} else if (ai.getSpec() >= 25) {
-				ai.doAttack(Weapon.DDS, player);
-				lblPlayerReceivedDmg.setText(
-						"DDS: -" + player.getWeaponHitFrom().getHit() + " -" + player.getWeaponHitFrom().getHit2());
+				ai.doDDS(player);
+				lblPlayerReceivedDmg.setText(ai.getHitString());
 
 				lblOpponentSpecTextAmount.setText(ai.getSpec() + "");
 				pgrPlayerSpecialBar.setValue(player.getSpec());
@@ -411,17 +409,17 @@ public class Staker extends JFrame {
 				int a = Util.randInt(0, 10);
 				if (ai.getHp() < 20) {
 					ai.eatShark();
-					lblOpponentSharkAmount.setText(ai.getShark().getAmount() + "");
+					lblOpponentSharkAmount.setText(ai.getSharkAmount() + "");
 				} else if (a >= 5) {
-					ai.doAttack(Weapon.DHAROK, player);
-					lblPlayerReceivedDmg.setText("DH: -" + player.getWeaponHitFrom().getHit());
+					ai.doDharok(player);
+					lblPlayerReceivedDmg.setText(ai.getHitString());
 
 					lblOpponentSpecTextAmount.setText(ai.getSpec() + "");
 					pgrPlayerSpecialBar.setValue(player.getSpec());
 					pgrOpponentSpecialBar.setValue(ai.getSpec());
 				} else {
-					ai.doAttack(Weapon.WHIP, player);
-					lblPlayerReceivedDmg.setText("WHIP: -" + player.getWeaponHitFrom().getHit());
+					ai.doWhip(player);
+					lblPlayerReceivedDmg.setText(ai.getHitString());
 
 					lblOpponentSpecTextAmount.setText(ai.getSpec() + "");
 					pgrPlayerSpecialBar.setValue(player.getSpec());
@@ -429,15 +427,15 @@ public class Staker extends JFrame {
 				}
 			}
 		} else {
-			ai.doAttack(Weapon.DHAROK, player);
-			lblPlayerReceivedDmg.setText("DH: -" + player.getWeaponHitFrom().getHit());
+			ai.doDharok(player);
+			lblPlayerReceivedDmg.setText(ai.getHitString());
 
 			lblOpponentSpecTextAmount.setText(ai.getSpec() + "");
 			pgrPlayerSpecialBar.setValue(player.getSpec());
 			pgrOpponentSpecialBar.setValue(ai.getSpec());
 		}
 		if (ai.getSpec() < 100) {
-			ai.setSpecFive();
+			ai.addSpecFive();
 			lblOpponentSpecTextAmount.setText(ai.getSpec() + "");
 			pgrOpponentSpecialBar.setValue(ai.getSpec());
 		}

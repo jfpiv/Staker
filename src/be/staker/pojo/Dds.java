@@ -5,12 +5,10 @@ import be.staker.util.Util;
 /**
  * Created by u0098595 on 13/06/2016.
  */
-public class Dds extends Weapon implements Special {
-    private int addSpec;
+public class Dds extends Weapon implements Special{
     private int decreaseSpec;
 
     public Dds(){
-        addSpec = 5;
         decreaseSpec = 25;
     }
 
