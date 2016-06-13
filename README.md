@@ -5,4 +5,9 @@ It's created by a group of close friends, we call ourselves :star:Hashtagrandom:
 
 
 
-<br><br><br>:watermelon:Current build: 0.9 :watermelon:
+<br><br>:exclamation:Never use any code without reffering to us!<br>
+:question:Any questions? Dont hesitate to contact us!
+
+
+<br><br>:watermelon:Current build: 0.9<br>
+:date:First stable build will come out soon!
