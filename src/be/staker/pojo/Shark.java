@@ -1,14 +1,11 @@
 package be.staker.pojo;
 
-public class Shark extends Button{
+public class Shark {
 	public static final int MIN_AMOUNT = 0;
 	
-	private int amount = 5;
-	private int healing = 40;
+	private int healing = 20;
 	
-	public Shark(int amount, int healing, int addSpec){
-		super(addSpec, 0);
-		this.setAmount(amount);
+	public Shark(){
 		this.setHealing(healing);
 	}
 
@@ -18,17 +15,5 @@ public class Shark extends Button{
 
 	public void setHealing(int healing) {
 		this.healing = healing;
-	}
-
-	public int getAmount() {
-		return amount;
-	}
-
-	public void setAmount(int amount) {
-		this.amount = amount;
-	}
-	
-	public void decreaseAmount(int amount) {	
-		this.amount = this.amount - amount;
 	}
 }

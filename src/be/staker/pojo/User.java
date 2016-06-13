@@ -12,34 +12,32 @@ public class User {
 	private int spec;
 	private int stake;
 	private int money;
+	private int sharkAmount;
 	private Shark shark;
 	private boolean isDead = false;
 	
-	private Weapon whip;
-	private Weapon dharok;
-	private Weapon dds;
-	private Weapon ags;
+	private Whip whip;
+	private Dharok dharok;
+	private Dds dds;
+	private Ags ags;
+
+	private String hitString;
 	
-	
-	private Weapon weaponHitFrom;
-	
-	public User(int hp, Shark shark, int spec, int money){
+	public User(int hp, int sharkAmount, int spec, int money){
 		this.setHp(hp);
-		this.setShark(shark);
 		this.setSpec(spec);
 		this.setMoney(money);
-		
-		whip = new Weapon(0);
-		dharok = new Weapon(0);
-		dds = new Weapon(25);
-		ags = new Weapon(50);
+		this.sharkAmount = sharkAmount;
+
+		shark = new Shark();
+		whip = new Whip();
+		dharok = new Dharok();
+		dds = new Dds();
+		ags = new Ags();
 	}
 	
-	public Weapon getWeaponHitFrom() {
-		return weaponHitFrom;
-	}
-	public void setWeaponHitFrom(Weapon weaponHitFrom) {
-		this.weaponHitFrom = weaponHitFrom;
+	public String getHitString() {
+		return hitString;
 	}
 
 	public int getHp() {
@@ -85,8 +83,15 @@ public class User {
 	public void setShark(Shark shark) {
 		this.shark = shark;
 	}
-	
-	
+
+	public int getSharkAmount() {
+		return sharkAmount;
+	}
+
+	public void setSharkAmount(int sharkAmount) {
+		this.sharkAmount = sharkAmount;
+	}
+
 	public Weapon getWhip() {
 		return whip;
 	}
@@ -100,16 +105,14 @@ public class User {
 		return ags;
 	}
 
-	public void setSpecFive(){
+	public void addSpecFive(){
 		this.spec += 5;
 	}
-	
-	public void addSpec(Weapon weapon) {
-		this.spec = this.spec + weapon.getAddSpec();
+
+	public void decreaseSpec(int decreaseSpec) {
+		this.spec -= decreaseSpec;
 	}
-	public void decreaseSpec(Weapon weapon) {
-		this.spec = this.spec - weapon.getDecreaseSpec();
-	}
+
 	public String decreaseHp(int damage){
 		if(!this.isDead()){
 			this.hp = this.hp - damage;
@@ -133,9 +136,10 @@ public class User {
 	public boolean eatShark(){
 		boolean success;
 		
-		if (this.shark.getAmount() > 0 && !this.isDead && this.getHp() < MAX_HEALTH) {
-			this.shark.decreaseAmount(1);
+		if (this.sharkAmount > 0 && !this.isDead && this.getHp() < MAX_HEALTH) {
+			this.sharkAmount--;
 			this.hp = this.hp + this.shark.getHealing();
+			this.addSpecFive();
 			success = true;
 		} else {
 			success = false;
@@ -147,22 +151,18 @@ public class User {
 	/*
 	 * Attack target with a chosen weapon
 	 */
-	public void doAttack(int weapon, User target){
-		switch (weapon) {
-		case Weapon.WHIP:
-			this.doWhip(target);
-			break;
-		case Weapon.DHAROK:
-			this.doDharok(target);
-			break;
-		case Weapon.DDS:
-			this.doDDS(target);
-			break;
-		case Weapon.AGS:
-			this.doAGS(target);
-			break;
-		default:
-			break;
+	public void doAttack(Weapon weapon, User target){
+		if(weapon instanceof Whip){
+			doWhip(target);
+		}
+		else if( weapon instanceof Dharok){
+			doDharok(target);
+		}
+		else if( weapon instanceof Dds){
+			doDDS(target);
+		}
+		else if( weapon instanceof Ags){
+			doAGS(target);
 		}
 	}
 	
@@ -171,18 +171,17 @@ public class User {
 	 */
 	public void doAttack(User target){
 		int random = Util.randInt(0, 4);
-		
 		switch (random) {
-		case Weapon.WHIP:
+		case 1:
 			this.doWhip(target);
 			break;
-		case Weapon.DHAROK:
+		case 2:
 			this.doDharok(target);
 			break;
-		case Weapon.DDS:
+		case 3:
 			this.doDDS(target);
 			break;
-		case Weapon.AGS:
+		case 4:
 			this.doAGS(target);
 			break;
 		default:
@@ -190,71 +189,42 @@ public class User {
 		}
 	}
 	
-	private void doWhip(User target){
+	public void doWhip(User target){
+		int damage = this.whip.getHit();
+		target.decreaseHp(damage);
+		
+		this.addSpecFive();
 
-		this.whip.setHit(Util.randInt(0, 26));
-		target.decreaseHp(this.whip.getHit());
-		
-		this.addSpec(this.whip);
-		this.decreaseSpec(this.whip);
-			
-		target.setWeaponHitFrom(this.whip); //dit is wapen waar je damage van gepakt hebt
-	
+		hitString = "Whip: -" + damage;
 	}
-	
-	private void doDharok(User target){
-		
-		if (target.getHp() <= 99 && target.getHp() > 80) {
-			this.dharok.setHit(Util.randInt(0, 20));
-		} else if (target.getHp() <= 80 && target.getHp() > 60) {
-			this.dharok.setHit(Util.randInt(0, 25));
-		} else if (target.getHp() <= 60 && target.getHp() > 45) {
-			this.dharok.setHit(Util.randInt(0, 30));
-		} else if (target.getHp() <= 45 && target.getHp() > 35) {
-			this.dharok.setHit(Util.randInt(0, 35));
-		} else if (target.getHp() <= 35 && target.getHp() > 10) {
-			this.dharok.setHit(Util.randInt(0, 40));
-		} else if (target.getHp() <= 10 && target.getHp() > 5) {
-			this.dharok.setHit(Util.randInt(0, 45));
-		} else if (target.getHp() <= 5 && target.getHp() > 3) {
-			this.dharok.setHit(Util.randInt(0, 50));
-		} else if (target.getHp() <= 3 && target.getHp() > 1) {
-			this.dharok.setHit(Util.randInt(0, 55));
-		} else if (target.getHp() <= 1) {
-			this.dharok.setHit(Util.randInt(0, 60));
-		}
-		
-		target.decreaseHp(this.dharok.getHit());
-		
-		this.addSpec(this.dharok);
-		this.decreaseSpec(this.dharok);
-		
-		
-		target.setWeaponHitFrom(this.dharok);
-		
+
+	public void doDharok(User target){
+		int damage = this.dharok.getHitDharok(hp);
+		target.decreaseHp(damage);
+		this.addSpecFive();
+
+		hitString = "Dh: -" + damage;
+	}
+
+	public void doDDS(User target){
+		int damage1 = this.dds.getHit();
+		int damage2 = this.dds.getHit2();
+		target.decreaseHp(damage1);
+		target.decreaseHp(damage2);
+		this.addSpecFive();
+		this.decreaseSpec(this.dds.getDecreaseSpec());
+
+		hitString = "DDS: -" + damage1 + " + -" + damage2;
 		
 	}
-	
-	private void doDDS(User target){
+
+	public void doAGS(User target){
+		int damage = this.ags.getHit();
+		target.decreaseHp(damage);
 		
-		this.dds.setHit(Util.randInt(0, 20));
-		this.dds.setHit2(Util.randInt(0, 20));
-		target.decreaseHp(this.dds.getHit());
-		target.decreaseHp(this.dds.getHit2());
-		this.addSpec(this.dds);
-		this.decreaseSpec(this.dds);
+		this.addSpecFive();
+		this.decreaseSpec(this.ags.getDecreaseSpec());
 			
-		target.setWeaponHitFrom(this.dds);
-		
-	}
-	
-	private void doAGS(User target){
-		this.ags.setHit(Util.randInt(0, 60));
-		target.decreaseHp(this.ags.getHit());
-		
-		this.addSpec(this.ags);
-		this.decreaseSpec(this.ags);
-			
-		target.setWeaponHitFrom(this.ags);
+		hitString = "AGS: -" + damage;
 	}
 }
