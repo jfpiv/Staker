@@ -18,7 +18,7 @@ public class Dds extends Weapon implements Special{
     }
 
     public int getHit() {
-        return Util.randInt(0, 60);
+        return Util.randInt(0, 20);
     }
 
     public int getHit2() {

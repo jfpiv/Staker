@@ -137,7 +137,7 @@ public class Staker extends JFrame {
 		JButton btnWhip = new JButton("Whip");
 		btnWhip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (player.isDead()) {
+				if (player.isDead() || ai.isDead()) {
 					return;
 				} else {
 					player.doWhip(ai);
@@ -162,7 +162,7 @@ public class Staker extends JFrame {
 		JButton btnDh = new JButton("Dharok");
 		btnDh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (player.isDead()) {
+				if (player.isDead() || ai.isDead()) {
 					return;
 				} else {
 					player.doDharok(ai);
@@ -188,7 +188,7 @@ public class Staker extends JFrame {
 		JButton btnDds = new JButton("DDS (25)");
 		btnDds.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (player.isDead()) {
+				if (player.isDead() || ai.isDead()) {
 					return;
 				} else {
 					player.doDDS(ai);
@@ -214,7 +214,7 @@ public class Staker extends JFrame {
 		JButton btnAgs = new JButton("AGS (50)");
 		btnAgs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (player.isDead()) {
+				if (player.isDead() || ai.isDead()){
 					return;
 				} else {
 					player.doAGS(ai);
@@ -240,7 +240,7 @@ public class Staker extends JFrame {
 		JButton btnEatShark = new JButton("Eat Shark");
 		btnEatShark.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (player.isDead() || player.getSharkAmount() == 0){
+				if (player.isDead() || player.getSharkAmount() == 0 || ai.isDead()){
 					return;
 				} else {
 					player.eatShark();
