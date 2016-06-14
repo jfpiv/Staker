@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5898c462-3e36-4797-acb5-f114560e5eae" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/be/staker/pojo/User.java" afterPath="$PROJECT_DIR$/src/be/staker/pojo/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/be/staker/ui/Staker.java" afterPath="$PROJECT_DIR$/src/be/staker/ui/Staker.java" />
     </list>
     <ignored path="Staker.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -579,7 +577,14 @@
       <option name="project" value="LOCAL" />
       <updated>1465911399858</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="stake money will now be received by the player if he wins, else he loses the money. The start button will also reset the game if the stake amount is valid.">
+      <created>1465916159890</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1465916159890</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -627,7 +632,8 @@
     <MESSAGE value="more object oriented" />
     <MESSAGE value="Small bug fix: fixed attack when out of spec" />
     <MESSAGE value="Restart button now resets all stats, instead of opening a new window. Restart button can only be used when player or ai is dead." />
-    <option name="LAST_COMMIT_MESSAGE" value="Restart button now resets all stats, instead of opening a new window. Restart button can only be used when player or ai is dead." />
+    <MESSAGE value="stake money will now be received by the player if he wins, else he loses the money. The start button will also reset the game if the stake amount is valid." />
+    <option name="LAST_COMMIT_MESSAGE" value="stake money will now be received by the player if he wins, else he loses the money. The start button will also reset the game if the stake amount is valid." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
