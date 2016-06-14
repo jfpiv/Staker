@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5898c462-3e36-4797-acb5-f114560e5eae" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/be/staker/pojo/User.java" afterPath="$PROJECT_DIR$/src/be/staker/pojo/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/be/staker/ui/Staker.java" afterPath="$PROJECT_DIR$/src/be/staker/ui/Staker.java" />
     </list>
     <ignored path="Staker.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -572,7 +570,14 @@
       <option name="project" value="LOCAL" />
       <updated>1465895971129</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Restart button now resets all stats, instead of opening a new window. Restart button can only be used when player or ai is dead.">
+      <created>1465911399858</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1465911399858</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -586,7 +591,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.17311233" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.17311233" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -619,7 +624,8 @@
     <MESSAGE value="add test comment" />
     <MESSAGE value="more object oriented" />
     <MESSAGE value="Small bug fix: fixed attack when out of spec" />
-    <option name="LAST_COMMIT_MESSAGE" value="Small bug fix: fixed attack when out of spec" />
+    <MESSAGE value="Restart button now resets all stats, instead of opening a new window. Restart button can only be used when player or ai is dead." />
+    <option name="LAST_COMMIT_MESSAGE" value="Restart button now resets all stats, instead of opening a new window. Restart button can only be used when player or ai is dead." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
