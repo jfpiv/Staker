@@ -188,7 +188,7 @@ public class Staker extends JFrame {
 		JButton btnDds = new JButton("DDS (25)");
 		btnDds.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (player.isDead() || ai.isDead()) {
+				if (player.isDead() || ai.isDead()||player.getSpec()<player.getDds().getDecreaseSpec()) {
 					return;
 				} else {
 					player.doDDS(ai);
@@ -214,7 +214,7 @@ public class Staker extends JFrame {
 		JButton btnAgs = new JButton("AGS (50)");
 		btnAgs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (player.isDead() || ai.isDead()){
+				if (player.isDead() || ai.isDead()||player.getSpec()<player.getAgs().getDecreaseSpec()){
 					return;
 				} else {
 					player.doAGS(ai);

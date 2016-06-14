@@ -92,16 +92,16 @@ public class User {
 		this.sharkAmount = sharkAmount;
 	}
 
-	public Weapon getWhip() {
+	public Whip getWhip() {
 		return whip;
 	}
-	public Weapon getDharok() {
+	public Dharok getDharok() {
 		return dharok;
 	}
-	public Weapon getDds() {
+	public Dds getDds() {
 		return dds;
 	}
-	public Weapon getAgs() {
+	public Ags getAgs() {
 		return ags;
 	}
 
