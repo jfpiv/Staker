@@ -310,7 +310,10 @@ public class Staker extends JFrame {
 
 		btnReset.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				reset();
+				//reset();
+				if(player.isDead()||ai.isDead()){
+					beterReset();
+				}
 			}
 		});
 		btnReset.setBounds(305, 517, 89, 23);
@@ -380,6 +383,21 @@ public class Staker extends JFrame {
 	private void reset() {
 		this.dispose();
 		new Staker();
+	}
+
+	private void beterReset(){
+		player.resetStats();
+		ai.resetStats();
+		lblPlayerHpValue.setText(player.getHp()+"");
+		lblPlayerSharkAmount.setText(player.getSharkAmount()+"");
+		lblPlayerSpecTextAmount.setText(player.getSpec()+"");
+		lblOpponentHpValue.setText(ai.getHp()+"");
+		lblOpponentSharkAmount.setText(ai.getSharkAmount()+"");
+		lblOpponentSpecTextAmount.setText(ai.getSpec()+"");
+		lblPlayerReceivedDmg.setText("");
+		lblOpponentReceivedDmg.setText("");
+		pgrOpponentSpecialBar.setValue(player.getSpec());
+		pgrPlayerSpecialBar.setValue(ai.getSpec());
 	}
 
 	private void layoutComponents() {

@@ -227,4 +227,10 @@ public class User {
 			
 		hitString = "AGS: -" + damage;
 	}
+
+	public void resetStats(){
+		this.hp = 99;
+		this.spec = 100;
+		this.sharkAmount = 5;
+	}
 }
