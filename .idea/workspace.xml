@@ -3,8 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="5898c462-3e36-4797-acb5-f114560e5eae" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/be/staker/pojo/User.java" afterPath="$PROJECT_DIR$/src/be/staker/pojo/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/be/staker/ui/Staker.java" afterPath="$PROJECT_DIR$/src/be/staker/ui/Staker.java" />
     </list>
     <ignored path="Staker.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -562,7 +560,14 @@
       <option name="project" value="LOCAL" />
       <updated>1465839034218</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Small bug fix: fixed attack when out of spec">
+      <created>1465895971129</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1465895971129</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -608,7 +613,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="add test comment" />
     <MESSAGE value="more object oriented" />
-    <option name="LAST_COMMIT_MESSAGE" value="more object oriented" />
+    <MESSAGE value="Small bug fix: fixed attack when out of spec" />
+    <option name="LAST_COMMIT_MESSAGE" value="Small bug fix: fixed attack when out of spec" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
