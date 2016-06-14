@@ -137,9 +137,9 @@ public class Staker extends JFrame {
 		JButton btnWhip = new JButton("Whip");
 		btnWhip.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (player.isDead() || ai.isDead()) {
+				if (player.isDead()||ai.isDead()) {
 					return;
-				} else {
+				}else{
 					player.doWhip(ai);
 					lblOpponentReceivedDmg.setText(player.getHitString());
 					lblPlayerSpecTextAmount.setText(player.getSpec() + "");
@@ -162,9 +162,9 @@ public class Staker extends JFrame {
 		JButton btnDh = new JButton("Dharok");
 		btnDh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (player.isDead() || ai.isDead()) {
+				if (player.isDead()||ai.isDead()) {
 					return;
-				} else {
+				}else {
 					player.doDharok(ai);
 					lblOpponentReceivedDmg.setText(player.getHitString());
 					lblOpponentHpValue.setText(Integer.toString(ai.getHp()));
@@ -188,9 +188,9 @@ public class Staker extends JFrame {
 		JButton btnDds = new JButton("DDS (25)");
 		btnDds.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (player.isDead() || ai.isDead()||player.getSpec()<player.getDds().getDecreaseSpec()) {
+				if (player.isDead()||ai.isDead()||player.getSpec()<player.getDds().getDecreaseSpec()) {
 					return;
-				} else {
+				}else {
 					player.doDDS(ai);
 					lblOpponentReceivedDmg.setText(player.getHitString());
 					pgrPlayerSpecialBar.setValue(player.getSpec());
@@ -214,9 +214,9 @@ public class Staker extends JFrame {
 		JButton btnAgs = new JButton("AGS (50)");
 		btnAgs.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (player.isDead() || ai.isDead()||player.getSpec()<player.getAgs().getDecreaseSpec()){
+				if (player.isDead()||ai.isDead()||player.getSpec()<player.getAgs().getDecreaseSpec()){
 					return;
-				} else {
+				}else {
 					player.doAGS(ai);
 					lblOpponentReceivedDmg.setText(player.getHitString());
 					pgrPlayerSpecialBar.setValue(player.getSpec());
@@ -242,7 +242,7 @@ public class Staker extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				if (player.isDead() || player.getSharkAmount() == 0 || ai.isDead()){
 					return;
-				} else {
+				}else {
 					player.eatShark();
 					lblPlayerReceivedDmg.setText("SHARK: +" + Integer.toString(player.getShark().getHealing()));
 					lblPlayerHpValue.setText(Integer.toString(player.getHp()));
@@ -250,7 +250,7 @@ public class Staker extends JFrame {
 					lblPlayerSpecTextAmount.setText(player.getSpec() + "");
 					lblPlayerSharkAmount.setText(Integer.toString(player.getSharkAmount()));
 					lblOpponentSharkAmount.setText(Integer.toString(ai.getSharkAmount()));
-					
+
 					AIAttack();
 				}
 			}
@@ -266,6 +266,7 @@ public class Staker extends JFrame {
 		 * Stake amount fields & buttons
 		 */
 		txtStakeAmountInputField.setBounds(305, 445, 89, 23);
+		txtStakeAmountInputField.setText(player.getMoney()+"");
 		getContentPane().add(txtStakeAmountInputField);
 
 		JLabel lblTextStakeAmount = new JLabel("Stake Amount:");
@@ -354,17 +355,23 @@ public class Staker extends JFrame {
 	}
 
 	private void startStake(ActionEvent st) {
-		player.setStake(Integer.parseInt(txtStakeAmountInputField.getText()));
-
-		if (player.getStake() <= 0) {
+		if (txtStakeAmountInputField.getText().equals("")) {
 			lblStakeAmountValue.setText("Invalid");
 			player.setStake(0);
-		} else if (player.getStake() > player.getMoney()) {
-			lblStakeAmountValue.setText("Invalid");
-			player.setStake(0);
-		} else {
-			player.setMoney(player.getMoney() - player.getStake());
-			lblStakeAmountValue.setText(Integer.toString(player.getStake()));
+		}else{
+			int stake = Integer.parseInt(txtStakeAmountInputField.getText());
+			if(stake <= 0 ){
+				lblStakeAmountValue.setText("Invalid");
+				player.setStake(0);
+			}else if (stake > player.getMoney()) {
+				lblStakeAmountValue.setText("Invalid");
+				player.setStake(0);
+			} else {
+				beterReset();
+				player.setStake(stake);
+				lblStakeAmountValue.setText(Integer.toString(player.getStake()));
+				txtStakeAmountInputField.setText(player.getMoney()+"");
+			}
 		}
 	}
 
@@ -398,6 +405,7 @@ public class Staker extends JFrame {
 		lblOpponentReceivedDmg.setText("");
 		pgrOpponentSpecialBar.setValue(player.getSpec());
 		pgrPlayerSpecialBar.setValue(ai.getSpec());
+		txtStakeAmountInputField.setText(player.getMoney()+"");
 	}
 
 	private void layoutComponents() {
@@ -405,8 +413,8 @@ public class Staker extends JFrame {
 	}
 
 	public void AIAttack() {
-		if (ai.getHp() == 0) {
-			return;
+		if (ai.isDead()) {
+
 		} else if (ai.getHp() >= 15) { // dharok check
 			int A = Util.randInt(0, 10);
 			if (A <= 8 && ai.getSpec() >= 50) {
@@ -457,9 +465,19 @@ public class Staker extends JFrame {
 			lblOpponentSpecTextAmount.setText(ai.getSpec() + "");
 			pgrOpponentSpecialBar.setValue(ai.getSpec());
 		}
+		//na de beurt van de ai de stakewinst of verlies toevoegen aan de user
+		//TODO: eventueel hier al een reset van alle gegevens doen
 		if (player.isDead()) {
+			player.setStake(0);
 			lblPlayerHpValue.setText("You Lost!");
-		} else {
+			lblStakeAmountValue.setText("");
+		}else if(ai.isDead()){
+			player.addStakeMoney();
+			txtStakeAmountInputField.setText(player.getMoney()+"");
+			lblPlayerHpValue.setText(Integer.toString(player.getHp()));
+			lblStakeAmountValue.setText("");
+			System.out.println("Yes gewonnen ik krijg geld");
+		}else {
 			lblPlayerHpValue.setText(Integer.toString(player.getHp()));
 		}
 	}

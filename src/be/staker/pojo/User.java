@@ -69,6 +69,7 @@ public class User {
 		return stake;
 	}
 	public void setStake(int stake) {
+		money = money - stake;
 		this.stake = stake;
 	}
 	public int getMoney() {
@@ -232,5 +233,11 @@ public class User {
 		this.hp = 99;
 		this.spec = 100;
 		this.sharkAmount = 5;
+		isDead = false;
 	}
+
+	public void addStakeMoney(){
+		this.money = this.money + 2*this.stake;
+	}
+
 }
